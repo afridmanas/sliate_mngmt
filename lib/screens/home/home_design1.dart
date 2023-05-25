@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:sliate/color.dart';
 import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
+import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
 
 // ignore: camel_case_types
@@ -67,7 +68,7 @@ class _home_design1State extends State<home_design1> {
         body: IndexedStack(
         children: [
           hm_ds_1(),
-          SearchPage(),
+          search_page(),
           userpage(),
           ProfilePage(),
         ],

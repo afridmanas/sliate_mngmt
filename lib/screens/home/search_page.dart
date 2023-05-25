@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sliate/color.dart';
 
 class search_page extends StatefulWidget {
   const search_page({super.key});
@@ -11,7 +13,8 @@ class _search_pageState extends State<search_page> {
   static List<NotesModel> notes_list = [
     NotesModel("HNDIT", "Data Structure", 2),
     NotesModel("HNDIT", "OOPS", 2),
-    NotesModel("HNDIT", "Data Communication and Network", 2)
+    NotesModel("HNDIT", "Data Communication and Network", 2),
+   
   ];
 
   List<NotesModel> display_list = List.from(notes_list);
@@ -31,34 +34,37 @@ class _search_pageState extends State<search_page> {
         elevation: 0,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Search for a Notes",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
+              'Search for LMS Notes',
+              style: GoogleFonts.mavenPro(
+                textStyle: const TextStyle(
+                  color: text,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ),
             SizedBox(
               height: 20,
             ),
-            TextField(
-              onChanged: (value) => updateList(value),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.black12,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none),
-                hintText: "eg: Data Structure",
-                prefixIcon: Icon(Icons.search),
-                prefixIconColor: Colors.black12,
-              ),
-            ),
+             TextFormField(
+                onChanged: (value) => updateList(value),
+               decoration: InputDecoration(
+                 filled: true,
+                 fillColor: bg,
+                // labelText: 'Data Structure',
+                  hintText: 'Search Here',
+                 prefixIcon: const Icon(Icons.search_sharp),
+                 border: OutlineInputBorder(
+                   borderRadius: BorderRadius.circular(15.0),
+                 ),
+               ),
+             ),
+            
             SizedBox(
               height: 20,
             ),
@@ -69,29 +75,37 @@ class _search_pageState extends State<search_page> {
                   fontWeight: FontWeight.bold
                 ),),): ListView.builder(
               itemCount: display_list.length,
-              itemBuilder: (context, index) => ListTile(
-                contentPadding: EdgeInsets.all(8),
-                title: Text(display_list[index].sub_title!,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Container(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: Colors.blueAccent,),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(5),
+                    title: Text(display_list[index].sub_title!,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                    subtitle: Text(
+                      '${display_list[index].department!}',style: TextStyle(
+                      color: Colors.black26,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                    trailing: Text(
+                      '${display_list[index].year!}',style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                             //   leading: Image.network(display_list[index].sub_image!),
+                  ),
+                  
                 ),
-                ),
-                subtitle: Text(
-                  '${display_list[index].department!}',style: TextStyle(
-                  color: Colors.black26,
-                  fontWeight: FontWeight.bold,
-                ),
-                ),
-                trailing: Text(
-                  '${display_list[index].year!}',style: TextStyle(
-                  color: Colors.blue,
-                  fontWeight: FontWeight.bold,
-                ),
-                ),
-             //   leading: Image.network(display_list[index].sub_image!),
               ),
-            ))
+              
+            ),)
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:sliate/color.dart';
 import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
+import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
 
 // ignore: camel_case_types
@@ -67,7 +68,7 @@ class _home_design1State extends State<home_design1> {
         body: IndexedStack(
         children: [
           hm_ds_1(),
-          SearchPage(),
+          search_page(),
           userpage(),
           ProfilePage(),
         ],
@@ -182,44 +183,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
             const SizedBox(
               height: 15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 45,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: bg,
-                        labelText: 'Search Here',
-                        // hintText: 'Search Here',
-                        prefixIcon: const Icon(Icons.search_sharp),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Container(
-                    height: 45,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                      border: Border.all(
-                        color: secondary,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: const Icon(Icons.filter_alt_rounded)),
-              ],
-            ),
-            const SizedBox(
+           const SizedBox(
               height: 10,
             ),
             SingleChildScrollView(

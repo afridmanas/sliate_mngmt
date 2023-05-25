@@ -57,11 +57,11 @@ class _signup_pageState extends State<signup_page> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const textField_username(),
+                    //const textField_username(),
                     const SizedBox(
                       height: 20,
                     ),
-                    const textField_password(),
+                   // const textField_password(),
                     const SizedBox(
                       height: 50,
                     ),

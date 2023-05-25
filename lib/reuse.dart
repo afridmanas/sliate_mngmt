@@ -5,48 +5,6 @@ import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:sliate/screens/categories/notes.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-// ignore: camel_case_types
-class textField_username extends StatelessWidget {
-  const textField_username({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const TextField(
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0))),
-        labelText: 'Email Address',
-        labelStyle: TextStyle(
-            color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14.0),
-      ),
-    );
-  }
-}
-
-// ignore: camel_case_types
-class textField_password extends StatelessWidget {
-  const textField_password({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(20.0),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15.0))),
-        labelText: 'Password',
-        labelStyle: TextStyle(
-            color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 14.0),
-      ),
-    );
-  }
-}
 
 // ignore: camel_case_types
 class title_text extends StatelessWidget {

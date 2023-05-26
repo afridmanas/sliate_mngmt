@@ -4,6 +4,7 @@ import 'package:sliate/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+
 class search_page extends StatefulWidget {
   const search_page({super.key});
 
@@ -66,14 +67,14 @@ class _search_pageState extends State<search_page> {
                  ),
                ),
              ),
-            Center(
+           Center(
         child: FloatingActionButton(
           backgroundColor: Colors.green,
           child: Icon(Icons.add),
           onPressed: () {
             FirebaseFirestore.instance
-                .collection('data')
-                .add({'sub_title': 'disaster recovery'});
+                .collection('data') 
+                .add({'sub_title': 'manas'});
           },
         ),),
             SizedBox(

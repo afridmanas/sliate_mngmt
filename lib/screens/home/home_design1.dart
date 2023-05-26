@@ -8,6 +8,8 @@ import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
 import 'package:sliate/screens/tabs/search_page.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:sliate/screens/widgets/drop_down.dart';
 
 // ignore: camel_case_types
 class home_design1 extends StatefulWidget {
@@ -19,7 +21,7 @@ class home_design1 extends StatefulWidget {
 
 // ignore: camel_case_types
 class _home_design1State extends State<home_design1> {
-   int _selectedIndex = 0;
+  int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -43,38 +45,28 @@ class _home_design1State extends State<home_design1> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const profile()),
-                  );
-                },
-                child: Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(25)),
-                  child: Image.asset(
-                    'assets/images/logo/manas.jpg',
-                    fit: BoxFit.fill,
-                  ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>  MyDropdownMenu()),
+                );
+              },
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: Icon(Ionicons.ellipsis_vertical,color: Colors.black,)
+
                 ),
               ),
-            ),
           ],
         ),
         backgroundColor: bg,
         drawer: const drawer(),
         body: IndexedStack(
-        children: [
-          hm_ds_1(),
-          search_page(),
-          userpage(),
-         notes_taking()
-        ],
-        index: _selectedIndex,
-      ),
+          children: [hm_ds_1(), search_page(), userpage(), notes_taking()],
+          index: _selectedIndex,
+        ),
         bottomNavigationBar: bottom_nav_bar(),
       ),
     );
@@ -82,40 +74,42 @@ class _home_design1State extends State<home_design1> {
 
   GNav bottom_nav_bar() {
     return GNav(
-          rippleColor: Colors.grey[300]!,
-          hoverColor: Colors.grey[100]!,
-          gap: 8,
-          activeColor: Colors.black,
-          iconSize: 24,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          duration: const Duration(milliseconds: 400),
-          tabBackgroundColor: Colors.grey[100]!,
-          color: Colors.black,
-          tabs: const [
-            GButton(
-              icon: LineIcons.home,
-              text: 'Home',
-            ),
-            GButton(
-              icon: LineIcons.heart,
-              text: 'Likes',
-            ),
-            GButton(
-              icon: LineIcons.search,
-              text: 'Search',
-            ),
-            GButton(
-              icon: LineIcons.user,
-              text: 'Profile',
-            ),
-          ],
-          selectedIndex: _selectedIndex,
-          onTabChange: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-  });
-}}
+        rippleColor: Colors.grey[300]!,
+        hoverColor: Colors.grey[100]!,
+        gap: 8,
+        activeColor: Colors.black,
+        iconSize: 24,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        duration: const Duration(milliseconds: 400),
+        tabBackgroundColor: Colors.grey[100]!,
+        color: Colors.black,
+        tabs: const [
+          GButton(
+            icon: LineIcons.home,
+            text: 'Home',
+          ),
+          GButton(
+            icon: LineIcons.book,
+            text: 'Notes',
+          ),
+          GButton(
+            icon: LineIcons.hackerNews,
+            text: 'Newsfeed',
+          ),
+          GButton(
+            icon: LineIcons.user,
+            text: 'Profile',
+          ),
+        ],
+        selectedIndex: _selectedIndex,
+        onTabChange: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        });
+  }
+}
+
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -125,9 +119,6 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-
-
-
 class userpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -136,6 +127,7 @@ class userpage extends StatelessWidget {
     );
   }
 }
+
 // ignore: camel_case_types
 class hm_ds_1 extends StatefulWidget {
   const hm_ds_1({
@@ -179,7 +171,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
             const SizedBox(
               height: 15,
             ),
-           const SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SingleChildScrollView(
@@ -499,8 +491,8 @@ class _hm_ds_1State extends State<hm_ds_1> {
                         ),
                         const SizedBox(width: 5),
                         const Expanded(
-                          child: Text(
-                              'The Academic will be Start on Next Monday'),
+                          child:
+                              Text('The Academic will be Start on Next Monday'),
                         ),
                       ],
                     ),

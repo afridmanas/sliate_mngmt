@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sliate/screens/widgets/tab-bar.dart';
 
 class search_page extends StatefulWidget {
   const search_page({Key? key}) : super(key: key);
@@ -23,10 +24,11 @@ class _search_pageState extends State<search_page> {
     setState(() {
       _isLoading = true;
     });
-    QuerySnapshot querySnapshot = await _firestore.collection('sub_title').get();
+    QuerySnapshot querySnapshot =
+        await _firestore.collection('sub_title').get();
     setState(() {
       Subjects = querySnapshot.docs;
-       _isLoading = false;
+      _isLoading = false;
     });
   }
 
@@ -42,7 +44,7 @@ class _search_pageState extends State<search_page> {
     } else {
       return Subjects.where((note) {
         String title = note['title'].toLowerCase();
-       
+
         String searchText = _searchText.toLowerCase();
         return title.contains(searchText);
       }).toList();
@@ -54,107 +56,136 @@ class _search_pageState extends State<search_page> {
       _searchText = searchText;
     });
   }
-Future<void> _refreshNotes() async {
-    QuerySnapshot querySnapshot = await _firestore.collection('sub_title').get();
+
+  Future<void> _refreshNotes() async {
+    QuerySnapshot querySnapshot =
+        await _firestore.collection('sub_title').get();
     setState(() {
       Subjects = querySnapshot.docs;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Search for LMS Notes',
-              style: GoogleFonts.mavenPro(
-                textStyle: const TextStyle(
-                  color: text,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
+              child: Text(
+                'LMS Notes',
+                style: GoogleFonts.abyssinicaSil(
+                  textStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            TextFormField(
-              onChanged: (value) => _searchNotes(value),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: bg,
-                hintText: 'Search Here',
-                prefixIcon: const Icon(Icons.search_sharp),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextFormField(
+                onChanged: (value) => _searchNotes(value),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: bg,
+                  hintText: 'Search Here',
+                  prefixIcon: const Icon(Icons.search_sharp),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+
+            Container(height: 50, child: tab_bar()),
+
             Expanded(
               child: _isLoading
                   ? Center(child: CircularProgressIndicator())
                   : RefreshIndicator(
                       onRefresh: _refreshNotes,
                       child: StreamBuilder<QuerySnapshot>(
-                        stream: _firestore.collection('sub_title').snapshots(),
-                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Something went wrong');
-                          }
+                          stream:
+                              _firestore.collection('sub_title').snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Something went wrong');
+                            }
 
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return Center(child: CircularProgressIndicator());
-                          }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            }
 
-                          Subjects = snapshot.data!.docs;
+                            Subjects = snapshot.data!.docs;
 
-                          return ListView.builder(
-                itemCount: _getFilteredNotes().length,
-                itemBuilder: (context, index) {
-                  DocumentSnapshot note = _getFilteredNotes()[index];
-                  return ListTile(
-                    contentPadding: EdgeInsets.all(5),
-                    title: Text(
-                      note['title'],
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  );
-                },
-              );
-  }))),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _textEditingController,
-                decoration: InputDecoration(
-                  hintText: 'Add a new Subject',
-                ),
-              ),
+                            return ListView.builder(
+                              itemCount: _getFilteredNotes().length,
+                              itemBuilder: (context, index) {
+                                DocumentSnapshot note =
+                                    _getFilteredNotes()[index];
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.all(5),
+                                      title: Text(
+                                        note['title'],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      tileColor: Colors.white,
+                                      selectedColor: Colors.grey,
+                                      leading: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Image.asset(
+                                          'assets/images/logo/manas.jpg',
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      subtitle: Text("Hi am Manas"),
+                                      trailing: Text("2nd"),
+                                    ),
+                                    Divider(
+                                      height: 5.0,
+                                      color: Colors.transparent,
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          })),
             ),
-            ElevatedButton(
-              child: Text('Add'),
-              onPressed: () {
-                _firestore.collection('sub_title').add({
-                  'title': _textEditingController.text,
-                  'content': 'sub_title',
-                });
-                _textEditingController.clear();
-              },
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: TextField(
+            //     controller: _textEditingController,
+            //     decoration: InputDecoration(
+            //       hintText: 'Add a new Subject',
+            //     ),
+            //   ),
+            // ),
+            // ElevatedButton(
+            //   child: Text('Add'),
+            //   onPressed: () {
+            //     _firestore.collection('sub_title').add({
+            //       'title': _textEditingController.text,
+            //       'content': 'sub_title',
+            //     });
+            //     _textEditingController.clear();
+            //   },
+            // ),
           ],
         ),
       ),

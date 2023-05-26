@@ -44,22 +44,7 @@ class _home_design1State extends State<home_design1> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>  MyDropdownMenu()),
-                );
-              },
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: Icon(Ionicons.ellipsis_vertical,color: Colors.black,)
-
-                ),
-              ),
-          ],
+          actions: [dropmenu()],
         ),
         backgroundColor: bg,
         drawer: const drawer(),
@@ -285,7 +270,48 @@ class _hm_ds_1State extends State<hm_ds_1> {
                     width: 130,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: secondary,
+                      // color: secondary,
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/logo/manas.jpg',
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 140,
+                    width: 130,
+                    decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    // color: secondary,
+                    image: const DecorationImage(
+                      image: AssetImage(
+                        'assets/images/logo/manas.jpg',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+                 
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Container(
+                    height: 140,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      // color: secondary,
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/logo/manas.jpg',
+                        ),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -296,29 +322,13 @@ class _hm_ds_1State extends State<hm_ds_1> {
                     width: 130,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: secondary,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: secondary,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: secondary,
+                      // color: secondary,
+                      image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/logo/manas.jpg',
+                        ),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ],
@@ -337,8 +347,17 @@ class _hm_ds_1State extends State<hm_ds_1> {
               height: 120,
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: secondary,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(40.0),
+                  topRight: Radius.circular(40.0),
+                ),
+                // color: secondary,
+                image: const DecorationImage(
+                  image: AssetImage(
+                    'assets/images/logo/manas.jpg',
+                  ),
+                  fit: BoxFit.fitWidth,
+                ),
               ),
             ),
             const SizedBox(

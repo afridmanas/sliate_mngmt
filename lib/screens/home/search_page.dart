@@ -65,6 +65,49 @@ class _search_pageState extends State<search_page> {
     });
   }
 
+ void _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 300.0,
+          child: Center(
+              child: Column(
+            children: [
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child:  TextField(
+                  controller: _textEditingController,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(), labelText: 'Subject Name'),
+                ),
+              ),
+              Container(
+                alignment: Alignment.center,
+                child: ElevatedButton.icon(
+                    onPressed: () => {
+                      _firestore.collection('sub_title').add({
+                    'title': _textEditingController.text,
+                    'content': 'sub_title',
+                    }),
+                  _textEditingController.clear()
+                },
+                    icon: const Icon(Icons.save),
+                    label: const Text('Save')),
+              ),
+            ],
+          )),
+        );
+      },
+    );
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +130,6 @@ class _search_pageState extends State<search_page> {
                 ),
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -103,12 +145,10 @@ class _search_pageState extends State<search_page> {
                 ),
               ),
             ),
-
-            Container(height: 50, child: tab_bar()),
-
+            Container(height: 50, child: const tab_bar()),
             Expanded(
               child: _isLoading
-                  ? Center(child: CircularProgressIndicator())
+                  ? const Center(child: CircularProgressIndicator())
                   : RefreshIndicator(
                       onRefresh: _refreshNotes,
                       child: StreamBuilder<QuerySnapshot>(
@@ -117,12 +157,13 @@ class _search_pageState extends State<search_page> {
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasError) {
-                              return Text('Something went wrong');
+                              return const Text('Something went wrong');
                             }
 
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
 
                             Subjects = snapshot.data!.docs;
@@ -135,10 +176,10 @@ class _search_pageState extends State<search_page> {
                                 return Column(
                                   children: [
                                     ListTile(
-                                      contentPadding: EdgeInsets.all(5),
+                                      contentPadding: const EdgeInsets.all(5),
                                       title: Text(
                                         note['title'],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -154,10 +195,10 @@ class _search_pageState extends State<search_page> {
                                           fit: BoxFit.fill,
                                         ),
                                       ),
-                                      subtitle: Text("Hi am Manas"),
-                                      trailing: Text("2nd"),
+                                      subtitle: const Text("Hi am Manas"),
+                                      trailing: const Text("2nd"),
                                     ),
-                                    Divider(
+                                    const Divider(
                                       height: 5.0,
                                       color: Colors.transparent,
                                     ),
@@ -167,28 +208,42 @@ class _search_pageState extends State<search_page> {
                             );
                           })),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: TextField(
-            //     controller: _textEditingController,
-            //     decoration: InputDecoration(
-            //       hintText: 'Add a new Subject',
-            //     ),
-            //   ),
-            // ),
-            // ElevatedButton(
-            //   child: Text('Add'),
-            //   onPressed: () {
-            //     _firestore.collection('sub_title').add({
-            //       'title': _textEditingController.text,
-            //       'content': 'sub_title',
-            //     });
-            //     _textEditingController.clear();
-            //   },
-            // ),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showBottomSheet(context);
+        },
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.black,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
+
+ 
 }
+
+
+
+// Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: TextField(
+              //     controller: _textEditingController,
+              //     decoration: InputDecoration(
+              //       hintText: 'Add a new Subject',
+              //     ),
+              //   ),
+              // ),
+              // ElevatedButton(
+              //   child: Text('Add'),
+              //   onPressed: () {
+              //     _firestore.collection('sub_title').add({
+              //       'title': _textEditingController.text,
+              //       'content': 'sub_title',
+              //     });
+              //     _textEditingController.clear();
+              //   },
+              // ),

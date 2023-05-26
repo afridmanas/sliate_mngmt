@@ -312,3 +312,24 @@ class _nav_barState extends State<nav_bar> {
     );
   }
 }
+
+void _showBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Container(
+        height: 200.0,
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              // Add your onPressed logic here
+              Navigator.pop(context);
+            },
+            child: Text('Close Bottom Sheet'),
+          ),
+        ),
+      );
+    },
+  );
+}
+

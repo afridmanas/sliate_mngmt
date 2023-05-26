@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class search_page extends StatefulWidget {
   const search_page({super.key});
@@ -64,7 +66,16 @@ class _search_pageState extends State<search_page> {
                  ),
                ),
              ),
-            
+            Center(
+        child: FloatingActionButton(
+          backgroundColor: Colors.green,
+          child: Icon(Icons.add),
+          onPressed: () {
+            FirebaseFirestore.instance
+                .collection('data')
+                .add({'sub_title': 'disaster recovery'});
+          },
+        ),),
             SizedBox(
               height: 20,
             ),

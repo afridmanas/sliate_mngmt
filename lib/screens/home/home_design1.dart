@@ -7,6 +7,7 @@ import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
+import 'package:sliate/screens/tabs/search_page.dart';
 
 // ignore: camel_case_types
 class home_design1 extends StatefulWidget {
@@ -70,7 +71,7 @@ class _home_design1State extends State<home_design1> {
           hm_ds_1(),
           search_page(),
           userpage(),
-          ProfilePage(),
+         notes_taking()
         ],
         index: _selectedIndex,
       ),
@@ -124,14 +125,9 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('This is the profile page'),
-    );
-  }
-}
+
+
+
 class userpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

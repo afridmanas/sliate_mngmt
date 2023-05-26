@@ -1,29 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-// ignore: camel_case_types
-class notes_page extends StatefulWidget {
-  const notes_page({super.key});
-
+class notes_taking extends StatefulWidget {
   @override
-  State<notes_page> createState() => _notes_pageState();
+  _notes_takingState createState() => _notes_takingState();
 }
 
-// ignore: camel_case_types
-class _notes_pageState extends State<notes_page> {
+class _notes_takingState extends State<notes_taking> {
+  final TextEditingController _textEditingController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.blue),
+        title: Text('Notes'),
       ),
-      body: SizedBox(
-        height: height,
-        width: width,
+      body: Column(
+        children: [
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('notes').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot note = snapshot.data!.docs[index];
+                    return ListTile(
+                      title: Text(note['title']),
+                      subtitle: Text(note['content']),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _textEditingController,
+              decoration: InputDecoration(
+                hintText: 'Add a new note',
+              ),
+            ),
+          ),
+          ElevatedButton(
+            child: Text('Add'),
+            onPressed: () {
+              _firestore.collection('notes').add({
+                'title': 'New Note',
+                'content': _textEditingController.text,
+              });
+              _textEditingController.clear();
+            },
+          ),
+        ],
       ),
     );
   }

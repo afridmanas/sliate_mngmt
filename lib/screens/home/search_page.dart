@@ -1,33 +1,65 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-
 class search_page extends StatefulWidget {
-  const search_page({super.key});
+  const search_page({Key? key}) : super(key: key);
 
   @override
   State<search_page> createState() => _search_pageState();
 }
 
 class _search_pageState extends State<search_page> {
-  static List<NotesModel> notes_list = [
-    NotesModel("HNDIT", "Data Structure", 2),
-    NotesModel("HNDIT", "OOPS", 2),
-    NotesModel("HNDIT", "Data Communication and Network", 2),
-   
-  ];
+  final TextEditingController _textEditingController = TextEditingController();
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<DocumentSnapshot> Subjects = [];
+  String _searchText = '';
+  bool _isLoading = false;
 
-  List<NotesModel> display_list = List.from(notes_list);
-
-  void updateList(String value) {
+  void _getNotes() async {
     setState(() {
-      display_list = notes_list.where((element) => element.sub_title!.toLowerCase().contains(value.toLowerCase())).toList();
+      _isLoading = true;
+    });
+    QuerySnapshot querySnapshot = await _firestore.collection('sub_title').get();
+    setState(() {
+      Subjects = querySnapshot.docs;
+       _isLoading = false;
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _getNotes();
+  }
+
+  List<DocumentSnapshot> _getFilteredNotes() {
+    if (_searchText.isEmpty) {
+      return Subjects;
+    } else {
+      return Subjects.where((note) {
+        String title = note['title'].toLowerCase();
+       
+        String searchText = _searchText.toLowerCase();
+        return title.contains(searchText);
+      }).toList();
+    }
+  }
+
+  void _searchNotes(String searchText) {
+    setState(() {
+      _searchText = searchText;
+    });
+  }
+Future<void> _refreshNotes() async {
+    QuerySnapshot querySnapshot = await _firestore.collection('sub_title').get();
+    setState(() {
+      Subjects = querySnapshot.docs;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,82 +86,78 @@ class _search_pageState extends State<search_page> {
             SizedBox(
               height: 20,
             ),
-             TextFormField(
-                onChanged: (value) => updateList(value),
-               decoration: InputDecoration(
-                 filled: true,
-                 fillColor: bg,
-                // labelText: 'Data Structure',
-                  hintText: 'Search Here',
-                 prefixIcon: const Icon(Icons.search_sharp),
-                 border: OutlineInputBorder(
-                   borderRadius: BorderRadius.circular(15.0),
-                 ),
-               ),
-             ),
-           Center(
-        child: FloatingActionButton(
-          backgroundColor: Colors.green,
-          child: Icon(Icons.add),
-          onPressed: () {
-            FirebaseFirestore.instance
-                .collection('data') 
-                .add({'sub_title': 'manas'});
-          },
-        ),),
+            TextFormField(
+              onChanged: (value) => _searchNotes(value),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: bg,
+                hintText: 'Search Here',
+                prefixIcon: const Icon(Icons.search_sharp),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+            ),
             SizedBox(
               height: 20,
             ),
             Expanded(
-                child: display_list.length == 0 ? Center(child: Text("No Results Found", style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold
-                ),),): ListView.builder(
-              itemCount: display_list.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Container(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8),color: Colors.blueAccent,),
-                  child: ListTile(
+              child: _isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : RefreshIndicator(
+                      onRefresh: _refreshNotes,
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: _firestore.collection('sub_title').snapshots(),
+                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+
+                          Subjects = snapshot.data!.docs;
+
+                          return ListView.builder(
+                itemCount: _getFilteredNotes().length,
+                itemBuilder: (context, index) {
+                  DocumentSnapshot note = _getFilteredNotes()[index];
+                  return ListTile(
                     contentPadding: EdgeInsets.all(5),
-                    title: Text(display_list[index].sub_title!,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                    title: Text(
+                      note['title'],
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    ),
-                    subtitle: Text(
-                      '${display_list[index].department!}',style: TextStyle(
-                      color: Colors.black26,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    ),
-                    trailing: Text(
-                      '${display_list[index].year!}',style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    ),
-                             //   leading: Image.network(display_list[index].sub_image!),
-                  ),
-                  
+                  );
+                },
+              );
+  }))),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _textEditingController,
+                decoration: InputDecoration(
+                  hintText: 'Add a new Subject',
                 ),
               ),
-              
-            ),)
+            ),
+            ElevatedButton(
+              child: Text('Add'),
+              onPressed: () {
+                _firestore.collection('sub_title').add({
+                  'title': _textEditingController.text,
+                  'content': 'sub_title',
+                });
+                _textEditingController.clear();
+              },
+            ),
           ],
         ),
       ),
     );
   }
-}
-
-class NotesModel {
-  String? sub_title;
-  String? department;
-  int? year;
-  //String? sub_image;
-
-  NotesModel(this.department, this.sub_title, this.year);
 }

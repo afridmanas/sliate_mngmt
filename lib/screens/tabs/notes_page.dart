@@ -14,9 +14,10 @@ class _notes_pageState extends State<notes_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'Popular Subjects',
+            'Available Notes',
             style: GoogleFonts.mavenPro(
               textStyle: const TextStyle(
                 color: Colors.black,
@@ -85,7 +86,7 @@ class _notes_pageState extends State<notes_page> {
                 ),
                 Container(
                   height: 70,
-                  width: 65,   
+                  width: 65,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     // color: secondary,
@@ -100,7 +101,6 @@ class _notes_pageState extends State<notes_page> {
               ],
             ),
           ),
-            
         ],
       ),
     );

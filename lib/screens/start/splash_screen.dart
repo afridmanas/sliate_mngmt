@@ -29,45 +29,22 @@ class _splash_screenState extends State<splash_screen> {
   route() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) =>  sign_in()),
+      MaterialPageRoute(builder: (context) => sign_in()),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 10),
-          Image.asset(
-            'assets/images/logo.jpg',
-            width: 180,
-            height: 150,
-          ),
-          // SizedBox(height: 130),
-          //   SpinKitCircle(
-          //     color: Colors.deepPurple,
-          //     size: 30.0,
-          //   ),
-          // SizedBox(height: 20),
-          // SpinKitChasingDots(
-          //   color: Colors.deepPurple,
-          //   size: 30.0,
-          // ),
-          //  SizedBox(height: 80),
-          //   SpinKitWave(
-          //     color: Colors.deepPurple,
-          //     size: 30.0,
-          //   ),
-          const SizedBox(height: 350),
-          const SpinKitFadingCube(
-            color: Colors.deepPurple,
-            size: 30.0,
-          ),
-        ],
+      body: Center(
+        child: Image.asset(
+          'assets/images/logo.jpg',
+          width: 150,
+          height: 120,
+        ),
       ),
-    ));
+    );
   }
 }

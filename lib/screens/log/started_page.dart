@@ -64,13 +64,7 @@ class _started_pageState extends State<started_page> {
                               const SizedBox(height: 20),
                               ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: ((context) =>
-                                          const signup_page()),
-                                    ),
-                                  );
+                                  
                                 },
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: const Size(400, 50),

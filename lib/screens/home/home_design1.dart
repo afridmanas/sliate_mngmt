@@ -7,6 +7,7 @@ import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
+import 'package:sliate/screens/tabs/notes_page.dart';
 import 'package:sliate/screens/tabs/search_page.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:sliate/screens/widgets/drop_down.dart';
@@ -49,7 +50,7 @@ class _home_design1State extends State<home_design1> {
         backgroundColor: bg,
         drawer: const drawer(),
         body: IndexedStack(
-          children: [hm_ds_1(), search_page(), userpage(), notes_taking()],
+          children: [hm_ds_1(), search_page(), userpage(), notes_page()],
           index: _selectedIndex,
         ),
         bottomNavigationBar: bottom_nav_bar(),

@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -6,10 +9,7 @@ import 'package:sliate/color.dart';
 import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/search_page.dart';
-import 'package:sliate/screens/navigation_bar/profile.dart';
 import 'package:sliate/screens/tabs/notes_page.dart';
-
-import 'package:ionicons/ionicons.dart';
 import 'package:sliate/screens/widgets/drop_down.dart';
 
 // ignore: camel_case_types
@@ -24,6 +24,7 @@ class home_design1 extends StatefulWidget {
 class _home_design1State extends State<home_design1> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -47,11 +48,16 @@ class _home_design1State extends State<home_design1> {
           elevation: 0,
           actions: [dropmenu()],
         ),
-       backgroundColor: Colors.white,
-        drawer: const drawer(), 
+        backgroundColor: Colors.white,
+        drawer: const drawer(),
         body: IndexedStack(
-          children: [hm_ds_1(), search_page(), userpage(), notes_page()],
           index: _selectedIndex,
+          children: [
+            const hm_ds_1(),
+            const search_page(),
+            userpage(),
+            const notes_page()
+          ],
         ),
         bottomNavigationBar: bottom_nav_bar(),
       ),
@@ -99,7 +105,7 @@ class _home_design1State extends State<home_design1> {
 class SearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text('This is the search page'),
     );
   }
@@ -108,7 +114,7 @@ class SearchPage extends StatelessWidget {
 class userpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Text('This is the profile page'),
     );
   }
@@ -128,6 +134,7 @@ class hm_ds_1 extends StatefulWidget {
 class _hm_ds_1State extends State<hm_ds_1> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20),
@@ -138,7 +145,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
               'Hey Manas',
               style: GoogleFonts.mavenPro(
                 textStyle: const TextStyle(
-                  color: text,
+                  color: Colors.black,
                   fontSize: 25,
                   fontWeight: FontWeight.w500,
                 ),
@@ -157,186 +164,70 @@ class _hm_ds_1State extends State<hm_ds_1> {
             const SizedBox(
               height: 15,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'System Analysis',
-                        style: GoogleFonts.patuaOne(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Data Structure',
-                        style: GoogleFonts.patuaOne(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Object Oriented',
-                        style: GoogleFonts.patuaOne(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    color: secondary,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Disaster Recovery',
-                        style: GoogleFonts.patuaOne(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
             const Divider(
               color: Colors.black,
             ),
-            Text(
-              'Popular Subjects',
-              style: GoogleFonts.mavenPro(
-                textStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Popular Subjects',
+                  style: GoogleFonts.mavenPro(
+                    textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => search_page()),
+                    );
+                  },
+                  child: Text(
+                    'See All',
+                    style: GoogleFonts.mavenPro(
+                      textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 10,
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      // color: secondary,
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/images/logo/manas.jpg',
+            Container(
+              height: 90,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    width: 75,
+                    margin: EdgeInsets.all(8),
+                    color: Colors.redAccent,
+                    child: Center(
+                      child: Text(
+                        'Box ${index + 1}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    // color: secondary,
-                    image: const DecorationImage(
-                      image: AssetImage(
-                        'assets/images/logo/manas.jpg',
-                      ),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                 
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      // color: secondary,
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/images/logo/manas.jpg',
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    height: 140,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      // color: secondary,
-                      image: const DecorationImage(
-                        image: AssetImage(
-                          'assets/images/logo/manas.jpg',
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
             const Divider(
               color: text,
@@ -347,13 +238,13 @@ class _hm_ds_1State extends State<hm_ds_1> {
             Container(
               height: 120,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40.0),
                   topRight: Radius.circular(40.0),
                 ),
                 // color: secondary,
-                image: const DecorationImage(
+                image: DecorationImage(
                   image: AssetImage(
                     'assets/images/logo/manas.jpg',
                   ),

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sliate/screens/categories/department.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
 import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:sliate/screens/categories/notes.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-
+import 'package:sliate/screens/categories/staff.dart';
 
 // ignore: camel_case_types
 class title_text extends StatelessWidget {
@@ -170,7 +171,12 @@ class drawer extends StatelessWidget {
             leading: const Icon(
               Icons.newspaper,
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => staff()),
+              );
+            },
           ),
           ListTile(
             title: const Text('Departments'),
@@ -196,7 +202,16 @@ class drawer extends StatelessWidget {
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FirebaseImagePage(
+                      imageUrl: 'gs://sliate-sam.appspot.com/banner.jpg',
+                    ),
+                  ),
+                );
+              }),
           ListTile(
               title: const Text('Forms'),
               leading: const Icon(
@@ -332,4 +347,3 @@ void _showBottomSheet(BuildContext context) {
     },
   );
 }
-

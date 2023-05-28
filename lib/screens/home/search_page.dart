@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:sliate/screens/categories/course-details.dart';
 import 'package:sliate/screens/widgets/tab-bar.dart';
 
 class search_page extends StatefulWidget {
@@ -26,10 +27,12 @@ class _search_pageState extends State<search_page> {
     });
     QuerySnapshot querySnapshot =
         await _firestore.collection('sub_title').get();
-    setState(() {
-      Subjects = querySnapshot.docs;
-      _isLoading = false;
-    });
+    setState(
+      () {
+        Subjects = querySnapshot.docs;
+        _isLoading = false;
+      },
+    );
   }
 
   @override
@@ -65,7 +68,7 @@ class _search_pageState extends State<search_page> {
     });
   }
 
- void _showBottomSheet(BuildContext context) {
+  void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -79,7 +82,7 @@ class _search_pageState extends State<search_page> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child:  TextField(
+                child: TextField(
                   controller: _textEditingController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Subject Name'),
@@ -89,12 +92,12 @@ class _search_pageState extends State<search_page> {
                 alignment: Alignment.center,
                 child: ElevatedButton.icon(
                     onPressed: () => {
-                      _firestore.collection('sub_title').add({
-                    'title': _textEditingController.text,
-                    'content': 'sub_title',
-                    }),
-                  _textEditingController.clear()
-                },
+                          _firestore.collection('sub_title').add({
+                            'title': _textEditingController.text,
+                            'content': 'sub_title',
+                          }),
+                          _textEditingController.clear()
+                        },
                     icon: const Icon(Icons.save),
                     label: const Text('Save')),
               ),
@@ -105,111 +108,161 @@ class _search_pageState extends State<search_page> {
     );
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
-              child: Text(
-                'LMS Notes',
-                style: GoogleFonts.abyssinicaSil(
-                  textStyle: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                onChanged: (value) => _searchNotes(value),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: bg,
-                  hintText: 'Search Here',
-                  prefixIcon: const Icon(Icons.search_sharp),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
-                  ),
-                ),
-              ),
-            ),
-            Container(height: 50, child: const tab_bar()),
-            Expanded(
-              child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : RefreshIndicator(
-                      onRefresh: _refreshNotes,
-                      child: StreamBuilder<QuerySnapshot>(
-                          stream:
-                              _firestore.collection('sub_title').snapshots(),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return const Text('Something went wrong');
-                            }
-
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            }
-
-                            Subjects = snapshot.data!.docs;
-
-                            return ListView.builder(
-                              itemCount: _getFilteredNotes().length,
-                              itemBuilder: (context, index) {
-                                DocumentSnapshot note =
-                                    _getFilteredNotes()[index];
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      contentPadding: const EdgeInsets.all(5),
-                                      title: Text(
-                                        note['title'],
-                                        style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      tileColor: Colors.white,
-                                      selectedColor: Colors.grey,
-                                      leading: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(25)),
-                                        child: Image.asset(
-                                          'assets/images/logo/manas.jpg',
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      subtitle: const Text("Hi am Manas"),
-                                      trailing: const Text("2nd"),
-                                    ),
-                                    const Divider(
-                                      height: 5.0,
-                                      color: Colors.transparent,
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          })),
-            ),
-          ],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.black, // Change the color of the back arrow here
         ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.file_download),
+            onPressed: () {
+              // Add your action code here
+            },
+          ),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Find Your favourite',
+                  style: GoogleFonts.mavenPro(
+                    textStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                Text(
+                  'notes here!',
+                  style: GoogleFonts.mavenPro(
+                    textStyle: const TextStyle(
+                      color: Colors.purple,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 18,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onChanged: (value) => _searchNotes(value),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: bg,
+                hintText: 'Search Here',
+                prefixIcon: const Icon(Icons.search_sharp),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Categories',
+                  style: GoogleFonts.mavenPro(
+                    textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 23,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CourseDetails()),
+                    );
+                  },
+                  child: Text(
+                    'View All',
+                    style: GoogleFonts.mavenPro(
+                      textStyle: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      height: 200,
+                      width: width / 5 * 2.20,
+                      child: Center(child: Text('HNDE')),
+                    ),
+                    Container(
+                      height: 200,
+                      width: width / 5 * 2.20,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 21, 7, 83),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Center(child: Text('HNDIT')),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 200,
+                  width: width / 5 * 4.60,
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Text('HNDA'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -222,8 +275,6 @@ class _search_pageState extends State<search_page> {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
-
- 
 }
 
 

@@ -23,7 +23,8 @@ class _sign_upState extends State<sign_up> {
   final _passwordController = TextEditingController();
   //final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _fullNameController = TextEditingController();
+  final _firstnamecontroller = TextEditingController();
+  final _surenamecontroller = TextEditingController();
 
   // void _submitForm() async {
   //   if (_formKey.currentState!.validate()) {
@@ -104,25 +105,50 @@ class _sign_upState extends State<sign_up> {
                     key: _formKey,
                     child: Column(
                       children: [
-                        TextFormField(
-                          controller: _fullNameController,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Full name is required';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.all(20.0),
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            labelText: 'Full Name',
-                            labelStyle: TextStyle(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 14.0),
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            TextFormField(
+                              controller: _firstnamecontroller,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'First Name is required';
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(20.0),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                labelText: 'Firstname',
+                                labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
+                              ),
+                            ),
+                            TextFormField(
+                              controller: _surenamecontroller,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Surename is required';
+                                }
+                                return null;
+                              },
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(20.0),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0))),
+                                labelText: 'Surename',
+                                labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 8,
@@ -213,7 +239,8 @@ class _sign_upState extends State<sign_up> {
                                     .doc(userCredential.user!.uid)
                                     .set(
                                   {
-                                    'name': _fullNameController.text,
+                                    'firstname': _firstnamecontroller.text,
+                                    'surename': _surenamecontroller.text,
                                     'email': _emailController.text,
                                     'password': _passwordController.text,
                                     'phone': "+94${_phoneController.text}",

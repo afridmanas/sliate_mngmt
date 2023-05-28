@@ -8,7 +8,7 @@ import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/search_page.dart';
 import 'package:sliate/screens/navigation_bar/profile.dart';
 import 'package:sliate/screens/tabs/notes_page.dart';
-import 'package:sliate/screens/tabs/search_page.dart';
+
 import 'package:ionicons/ionicons.dart';
 import 'package:sliate/screens/widgets/drop_down.dart';
 
@@ -47,8 +47,8 @@ class _home_design1State extends State<home_design1> {
           elevation: 0,
           actions: [dropmenu()],
         ),
-        backgroundColor: bg,
-        drawer: const drawer(),
+       backgroundColor: Colors.white,
+        drawer: const drawer(), 
         body: IndexedStack(
           children: [hm_ds_1(), search_page(), userpage(), notes_page()],
           index: _selectedIndex,

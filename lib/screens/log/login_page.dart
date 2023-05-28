@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/screens/home/home_design1.dart';
@@ -12,8 +13,16 @@ class sign_in extends StatefulWidget {
 }
 
 class _sign_inState extends State<sign_in> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +45,7 @@ class _sign_inState extends State<sign_in> {
                   child: Container(
                     height: height,
                     width: width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/sliate/sliate1.jpeg'),
                         fit: BoxFit.cover,
@@ -45,168 +54,164 @@ class _sign_inState extends State<sign_in> {
                   ),
                 ),
                 Container(
-                  child: Column(
-                    children: [
-                      Container(
-                        height: height / 2,
-                        width: width,
-                        child: Center(
-                          child: Text(
-                            'SLIATE',
-                            style: GoogleFonts.mavenPro(
-                              textStyle: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold,
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          height: height / 2,
+                          width: width,
+                          child: Center(
+                            child: Text(
+                              'SLIATE',
+                              style: GoogleFonts.mavenPro(
+                                textStyle: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(30.0),
-                          child: Column(
-                            children: [
-                              TextField(
-                                controller: _usernameController,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(20.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
-                                  labelText: 'Email Address',
-                                  labelStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.0),
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(30.0),
+                            child: Column(
+                              children: [
+                                TextField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
+                                    labelText: 'Email Address',
+                                    labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14.0),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              TextField(
-                                controller: _passwordController,
-                                obscureText: true,
-                                decoration: const InputDecoration(
-                                  contentPadding: EdgeInsets.all(15.0),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0))),
-                                  labelText: 'Password',
-                                  labelStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14.0),
+                                const SizedBox(
+                                  height: 8,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (_usernameController.text.isEmpty ||
-                                      _passwordController.text.isEmpty) {
-                                    // Show an error message.
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Please enter a username and password.'),
-                                      ),
-                                    );
-                                  } else {
-                                    // Check if the username and password are valid.
-                                    if (_usernameController.text == 'manas' &&
-                                        _passwordController.text == '55537766') {
-                                      // Login the user.
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const home_design1(),
-                                        ),
-                                      );
-                                    } else {
-                                      // Show an error message.
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Invalid username or password.'),
-                                        ),
-                                      );
+                                TextField(
+                                  controller: _passwordController,
+                                  obscureText: true,
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.all(15.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0))),
+                                    labelText: 'Password',
+                                    labelStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14.0),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      try {
+                                        await FirebaseAuth.instance
+                                            .signInWithEmailAndPassword(
+                                          email: _emailController.text,
+                                          password: _passwordController.text,
+                                        );
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const home_design1()),
+                                          ),
+                                        );
+                                        _emailController.clear();
+                                        _passwordController.clear();
+                                      } on FirebaseAuthException catch (e) {
+                                        SnackBar(
+                                            content: Text(
+                                                'Must fill the Empty Fields'));
+                                      }
                                     }
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(400, 50),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    side: const BorderSide(
-                                        color: Colors.grey, width: 1),
+                                  },
+                                  child: const Text(
+                                    'Log In',
+                                    style: TextStyle(color: Colors.white),
                                   ),
-                                  backgroundColor: Colors.black,
-                                  padding: const EdgeInsets.all(10),
-                                  textStyle: const TextStyle(
-                                      fontSize: 20, fontWeight: FontWeight.bold),
-                                ),
-                                child: const Text(
-                                  'Log In',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: const Text(
-                                      'forget passwword?',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: const Size(400, 50),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(
+                                          color: Colors.grey, width: 1),
                                     ),
+                                    backgroundColor: Colors.black,
+                                    padding: const EdgeInsets.all(10),
+                                    textStyle: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => sign_up(),
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: const Text(
+                                        'forget passwword?',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'don\'t have an account?',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 40),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(Icons.facebook),
-                                  const SizedBox(width: 20),
-                                  const Icon(Icons.email)
-                                ],
-                              )
-                            ],
+                                  ],
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => sign_up(),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'don\'t have an account?',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 40),
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.facebook),
+                                    SizedBox(width: 20),
+                                    Icon(Icons.email)
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

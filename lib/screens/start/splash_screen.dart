@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:sliate/screens/log/login_page.dart';
 
 // ignore: camel_case_types
@@ -35,8 +34,6 @@ class _splash_screenState extends State<splash_screen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: Image.asset(

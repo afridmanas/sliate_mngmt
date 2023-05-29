@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
@@ -56,7 +57,9 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
       if (pickedFile != null) {
         _imageFile = File(pickedFile.path);
       } else {
-        print('No image selected.');
+        if (kDebugMode) {
+          print('No image selected.');
+        }
       }
     });
   }
@@ -318,7 +321,6 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var course = snapshot.data!.docs[index];
-              var courseId = snapshot.data!.docs[index];
               // DocumentSnapshot courseId = snapshot.data!.docs[index];
 
               return Card(

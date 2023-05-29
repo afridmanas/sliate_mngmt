@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:sliate/screens/categories/department.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
-import 'package:sliate/screens/categories/gallery.dart';
 import 'package:sliate/screens/categories/newsfeed.dart';
-import 'package:sliate/screens/categories/notes.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sliate/screens/categories/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
@@ -199,12 +196,7 @@ class drawer extends StatelessWidget {
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CourseDetailsPage()),
-                );
-              }),
+              onTap: () {}),
           ListTile(
               title: const Text('Events'),
               leading: const Icon(

@@ -11,22 +11,17 @@ class CourseDetails extends StatefulWidget {
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  final TextEditingController _textEditingController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
   String _searchText = '';
-  bool _isLoading = false;
 
   void _getNotes() async {
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() {});
     QuerySnapshot querySnapshot =
         await _firestore.collection('sub_title').get();
     setState(
       () {
         Subjects = querySnapshot.docs;
-        _isLoading = false;
       },
     );
   }
@@ -87,83 +82,81 @@ class _CourseDetailsState extends State<CourseDetails> {
         padding: const EdgeInsets.all(10.0),
         child: RefreshIndicator(
           onRefresh: _refreshNotes,
-          child: Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    onChanged: (value) => _searchNotes(value),
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: bg,
-                      hintText: 'Search Here',
-                      prefixIcon: const Icon(Icons.search_sharp),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  onChanged: (value) => _searchNotes(value),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: bg,
+                    hintText: 'Search Here',
+                    prefixIcon: const Icon(Icons.search_sharp),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                'Categories',
+                style: GoogleFonts.mavenPro(
+                  textStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _firestore.collection('sub_title').snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    Subjects = snapshot.data!.docs;
+
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.95,
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'Categories',
-                  style: GoogleFonts.mavenPro(
-                    textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Expanded(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('sub_title').snapshots(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (snapshot.hasError) {
-                        return const Text('Something went wrong');
-                      }
-
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-
-                      Subjects = snapshot.data!.docs;
-
-                      return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.95,
-                        ),
-                        itemCount: Subjects.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          DocumentSnapshot note = _getFilteredNotes()[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              height: 150,
-                              width: double.infinity / 5 * 2.20,
-                              child: Center(child: Text(note['title'])),
+                      itemCount: Subjects.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        DocumentSnapshot note = _getFilteredNotes()[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+                            height: 150,
+                            width: double.infinity / 5 * 2.20,
+                            child: Center(child: Text(note['title'])),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

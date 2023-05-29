@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -129,7 +126,6 @@ class hm_ds_1 extends StatefulWidget {
 class _hm_ds_1State extends State<hm_ds_1> {
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20),
@@ -179,7 +175,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Notes_Page()),
+                      MaterialPageRoute(builder: (context) => const Notes_Page()),
                     );
                   },
                   child: Text(
@@ -198,7 +194,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
             const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               height: 90,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -206,12 +202,12 @@ class _hm_ds_1State extends State<hm_ds_1> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     width: 75,
-                    margin: EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
                     color: Colors.redAccent,
                     child: Center(
                       child: Text(
                         'Box ${index + 1}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                         ),

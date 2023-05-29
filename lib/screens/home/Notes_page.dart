@@ -2,10 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:sliate/screens/categories/course-details.dart';
-import 'package:sliate/screens/widgets/tab-bar.dart';
 
 class Notes_Page extends StatefulWidget {
   const Notes_Page({Key? key}) : super(key: key);
@@ -19,18 +16,15 @@ class _Notes_PageState extends State<Notes_Page> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
   String _searchText = '';
-  bool _isLoading = false;
 
   void _getNotes() async {
     setState(() {
-      _isLoading = true;
     });
     QuerySnapshot querySnapshot =
         await _firestore.collection('sub_title').get();
     setState(
       () {
         Subjects = querySnapshot.docs;
-        _isLoading = false;
       },
     );
   }
@@ -60,31 +54,24 @@ class _Notes_PageState extends State<Notes_Page> {
     });
   }
 
-  Future<void> _refreshNotes() async {
-    QuerySnapshot querySnapshot =
-        await _firestore.collection('sub_title').get();
-    setState(() {
-      Subjects = querySnapshot.docs;
-    });
-  }
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           height: 300.0,
           child: Center(
               child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _textEditingController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Subject Name'),
                 ),
               ),
@@ -116,12 +103,12 @@ class _Notes_PageState extends State<Notes_Page> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.file_download),
+            icon: const Icon(Icons.file_download),
             onPressed: () {
               // Add your action code here
             },
@@ -159,7 +146,7 @@ class _Notes_PageState extends State<Notes_Page> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 18,
           ),
           Padding(
@@ -177,7 +164,7 @@ class _Notes_PageState extends State<Notes_Page> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Padding(
@@ -199,7 +186,7 @@ class _Notes_PageState extends State<Notes_Page> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => CourseDetails()),
+                      MaterialPageRoute(builder: (context) => const CourseDetails()),
                     );
                   },
                   child: Text(
@@ -216,7 +203,7 @@ class _Notes_PageState extends State<Notes_Page> {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Expanded(
@@ -233,20 +220,20 @@ class _Notes_PageState extends State<Notes_Page> {
                         ),
                         height: 200,
                         width: width / 5 * 2.20,
-                        child: Center(child: Text('HNDE')),
+                        child: const Center(child: Text('HNDE')),
                       ),
                       Container(
                         height: 200,
                         width: width / 5 * 2.20,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 21, 7, 83),
+                          color: const Color.fromARGB(255, 21, 7, 83),
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Center(child: Text('HNDIT')),
+                        child: const Center(child: Text('HNDIT')),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
@@ -256,7 +243,7 @@ class _Notes_PageState extends State<Notes_Page> {
                       color: Colors.redAccent,
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text('HNDA'),
                     ),
                   ),
@@ -270,9 +257,9 @@ class _Notes_PageState extends State<Notes_Page> {
         onPressed: () {
           _showBottomSheet(context);
         },
-        child: const Icon(Icons.add),
         backgroundColor: Colors.grey,
         foregroundColor: Colors.black,
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );

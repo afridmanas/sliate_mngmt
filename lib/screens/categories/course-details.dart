@@ -71,12 +71,12 @@ class _CourseDetailsState extends State<CourseDetails> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
             onPressed: () {
               // Add your action code here
             },
@@ -90,15 +90,22 @@ class _CourseDetailsState extends State<CourseDetails> {
           child: Container(
             child: Column(
               children: [
-                Container(
-                  height: 150,
-                  width: double.infinity / 5 * 4.60,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    onChanged: (value) => _searchNotes(value),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: bg,
+                      hintText: 'Search Here',
+                      prefixIcon: const Icon(Icons.search_sharp),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                    ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
@@ -111,7 +118,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Expanded(
@@ -135,7 +142,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                           crossAxisCount: 2,
                           childAspectRatio: 0.95,
                         ),
-                        itemCount: 50,
+                        itemCount: Subjects.length,
                         itemBuilder: (BuildContext context, int index) {
                           DocumentSnapshot note = _getFilteredNotes()[index];
                           return Padding(

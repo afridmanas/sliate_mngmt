@@ -7,14 +7,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sliate/screens/categories/course-details.dart';
 import 'package:sliate/screens/widgets/tab-bar.dart';
 
-class search_page extends StatefulWidget {
-  const search_page({Key? key}) : super(key: key);
+class Notes_Page extends StatefulWidget {
+  const Notes_Page({Key? key}) : super(key: key);
 
   @override
-  State<search_page> createState() => _search_pageState();
+  State<Notes_Page> createState() => _Notes_PageState();
 }
 
-class _search_pageState extends State<search_page> {
+class _Notes_PageState extends State<Notes_Page> {
   final TextEditingController _textEditingController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
@@ -220,46 +220,48 @@ class _search_pageState extends State<search_page> {
             height: 5,
           ),
           Expanded(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(20),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        height: 200,
+                        width: width / 5 * 2.20,
+                        child: Center(child: Text('HNDE')),
                       ),
-                      height: 200,
-                      width: width / 5 * 2.20,
-                      child: Center(child: Text('HNDE')),
-                    ),
-                    Container(
-                      height: 200,
-                      width: width / 5 * 2.20,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 21, 7, 83),
-                        borderRadius: BorderRadius.circular(20),
+                      Container(
+                        height: 200,
+                        width: width / 5 * 2.20,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 21, 7, 83),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(child: Text('HNDIT')),
                       ),
-                      child: Center(child: Text('HNDIT')),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    height: 200,
+                    width: width / 5 * 4.60,
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  height: 200,
-                  width: width / 5 * 4.60,
-                  decoration: BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.circular(20),
+                    child: Center(
+                      child: Text('HNDA'),
+                    ),
                   ),
-                  child: Center(
-                    child: Text('HNDA'),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

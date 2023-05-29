@@ -1,102 +1,175 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:sliate/color.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-// ignore: camel_case_types
-class developer extends StatefulWidget {
-  const developer({super.key});
+class DeveloperInfoPage extends StatelessWidget {
+  final String name = 'John Doe';
+  final String image = 'https://via.placeholder.com/150';
+  final String about =
+      'I am a mobile app developer with 5 years of experience in Flutter. I specialize in building beautiful and functional apps for both Android and iOS platforms.';
+  final List<String> projects = [
+    'Project 1',
+    'Project 2',
+    'Project 3',
+  ];
+  final String githubLink = 'https://github.com/johndoe';
+  final String email = 'johndoe@example.com';
+  final String phone = '+1 123-456-7890';
+  final String linkedinLink = 'https://www.linkedin.com/in/johndoe';
+  final String twitterLink = 'https://twitter.com/johndoe';
 
-  @override
-  State<developer> createState() => _developerState();
-}
+  void _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      'Could not launch $url';
+    }
+  }
 
-// ignore: camel_case_types
-class _developerState extends State<developer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bg,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Developer',
-          style: TextStyle(
-            color: text,
-            fontSize: 25,
-          ),
-        ),
-        iconTheme: const IconThemeData(color: text),
+        backgroundColor: Colors.white,
         elevation: 0,
-        backgroundColor: bg,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-          left: 25,
-          right: 25,
-          bottom: 25,
+        iconTheme: IconThemeData(
+          color: Colors.black, // Change the color of the back arrow here
         ),
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          color: bg,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/logo/manas.jpg'),
-                      fit: BoxFit.cover,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 50.0,
+                    backgroundImage: AssetImage(
+                      'assets/images/logo/manas.jpg',
                     ),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40),
+                    // fit: BoxFit.fitWidth,
+                  ),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        SizedBox(height: 8.0),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.email),
+                              onPressed: () => _launchURL('mailto:$email'),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.phone),
+                              onPressed: () => _launchURL('tel:$phone'),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.link),
+                              onPressed: () => _launchURL(githubLink),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
+                ],
               ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: bg,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(75),
-                      bottomLeft: Radius.circular(75),
+            ),
+            SizedBox(height: 16.0),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'About Me',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Manas Afrid',
-                        style: GoogleFonts.mavenPro(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        'HNDIT 2020 Batch',
-                        style: GoogleFonts.mavenPro(
-                          textStyle: const TextStyle(
-                            color: text,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(height: 8.0),
+                  Text(
+                    about,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                    ),
                   ),
-                ),
-              )
-            ],
-          ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Projects',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  SizedBox(height: 8.0),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: projects.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(projects[index]),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.link),
+                    onPressed: () => _launchURL(githubLink),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.email),
+                    onPressed: () => _launchURL('mailto:$email'),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.phone),
+                    onPressed: () => _launchURL('tel:$phone'),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.email),
+                    onPressed: () => _launchURL(linkedinLink),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.email),
+                    onPressed: () => _launchURL(twitterLink),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

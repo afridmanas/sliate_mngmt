@@ -6,8 +6,13 @@ class staff extends StatelessWidget {
     return MaterialApp(
       title: 'Horizontal ListView Demo',
       home: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Horizontal ListView Demo'),
+          backgroundColor: Colors.white,
+          elevation: 0,
+          iconTheme: IconThemeData(
+            color: Colors.black, // Change the color of the back arrow here
+          ),
         ),
         body: Column(
           children: [

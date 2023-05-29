@@ -8,7 +8,7 @@ import 'package:line_icons/line_icons.dart';
 import 'package:sliate/color.dart';
 import 'package:sliate/reuse.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
-import 'package:sliate/screens/home/search_page.dart';
+import 'package:sliate/screens/home/Notes_page.dart';
 import 'package:sliate/screens/tabs/notes_page.dart';
 import 'package:sliate/screens/widgets/drop_down.dart';
 
@@ -52,12 +52,7 @@ class _home_design1State extends State<home_design1> {
         drawer: const drawer(),
         body: IndexedStack(
           index: _selectedIndex,
-          children: [
-            const hm_ds_1(),
-            const search_page(),
-            userpage(),
-            const notes_page()
-          ],
+          children: [const hm_ds_1(), userpage(), const notes_page()],
         ),
         bottomNavigationBar: bottom_nav_bar(),
       ),
@@ -184,7 +179,7 @@ class _hm_ds_1State extends State<hm_ds_1> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => search_page()),
+                      MaterialPageRoute(builder: (context) => Notes_Page()),
                     );
                   },
                   child: Text(

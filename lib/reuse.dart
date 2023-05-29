@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:sliate/screens/categories/department.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
+import 'package:sliate/screens/categories/gallery.dart';
 import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:sliate/screens/categories/notes.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:sliate/screens/categories/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
+import 'package:sliate/screens/home/Notes_page.dart';
 
 // ignore: camel_case_types
 class title_text extends StatelessWidget {
@@ -155,7 +158,7 @@ class drawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const notes()),
+                MaterialPageRoute(builder: (context) => const Notes_Page()),
               );
             },
           ),
@@ -196,22 +199,18 @@ class drawer extends StatelessWidget {
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CourseDetailsPage()),
+                );
+              }),
           ListTile(
               title: const Text('Events'),
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FirebaseImagePage(
-                      imageUrl: 'gs://sliate-sam.appspot.com/banner.jpg',
-                    ),
-                  ),
-                );
-              }),
+              onTap: () {}),
           ListTile(
               title: const Text('Forms'),
               leading: const Icon(
@@ -219,11 +218,18 @@ class drawer extends StatelessWidget {
               ),
               onTap: () {}),
           ListTile(
-              title: const Text('Guidelines'),
+              title: const Text('Settings'),
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsPage(),
+                  ),
+                );
+              }),
           ListTile(
               title: const Text('Library'),
               leading: const Icon(
@@ -251,7 +257,7 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const developer(),
+                    builder: (context) => DeveloperInfoPage(),
                   ),
                 );
               }),
@@ -340,7 +346,7 @@ void _showBottomSheet(BuildContext context) {
               // Add your onPressed logic here
               Navigator.pop(context);
             },
-            child: Text('Close Bottom Sheet'),
+            child: const Text('Close Bottom Sheet'),
           ),
         ),
       );

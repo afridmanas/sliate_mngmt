@@ -12,7 +12,7 @@ class Notes_Page extends StatefulWidget {
 }
 
 class _Notes_PageState extends State<Notes_Page> {
-  final TextEditingController _textEditingController = TextEditingController();
+  
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
   String _searchText = '';
@@ -55,46 +55,7 @@ class _Notes_PageState extends State<Notes_Page> {
   }
 
 
-  void _showBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 300.0,
-          child: Center(
-              child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  controller: _textEditingController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: 'Subject Name'),
-                ),
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: ElevatedButton.icon(
-                    onPressed: () => {
-                          _firestore.collection('sub_title').add({
-                            'title': _textEditingController.text,
-                            'content': 'sub_title',
-                          }),
-                          _textEditingController.clear()
-                        },
-                    icon: const Icon(Icons.save),
-                    label: const Text('Save')),
-              ),
-            ],
-          )),
-        );
-      },
-    );
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -253,15 +214,7 @@ class _Notes_PageState extends State<Notes_Page> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showBottomSheet(context);
-        },
-        backgroundColor: Colors.grey,
-        foregroundColor: Colors.black,
-        child: const Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      
     );
   }
 }

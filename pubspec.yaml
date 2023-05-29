@@ -52,6 +52,7 @@ dependencies:
   firebase_storage: ^11.2.1
   image_picker: ^0.8.7+5
   url_launcher: ^6.1.11
+  flutter_staggered_grid_view: ^0.6.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

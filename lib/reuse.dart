@@ -3,9 +3,11 @@ import 'package:line_icons/line_icons.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
 import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:sliate/screens/categories/pastpaper.dart';
 import 'package:sliate/screens/categories/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
 import 'package:sliate/screens/home/Notes_page.dart';
+import 'package:sliate/screens/widgets/demo.dart';
 
 // ignore: camel_case_types
 class title_text extends StatelessWidget {
@@ -186,11 +188,18 @@ class drawer extends StatelessWidget {
             onTap: () {},
           ),
           ListTile(
-              title: const Text('Coordinators'),
+              title: const Text('Test'),
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StaggeredGridPage(),
+                  ),
+                );
+              }),
           ListTile(
               title: const Text('Course Modules'),
               leading: const Icon(
@@ -239,7 +248,14 @@ class drawer extends StatelessWidget {
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PassPaperList(),
+                  ),
+                );
+              }),
           ListTile(
               title: const Text('Developer Info'),
               leading: const Icon(

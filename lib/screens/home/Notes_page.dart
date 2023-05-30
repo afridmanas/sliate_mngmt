@@ -15,7 +15,6 @@ class _Notes_PageState extends State<Notes_Page> {
   
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
-  String _searchText = '';
 
   void _getNotes() async {
     setState(() {
@@ -35,22 +34,9 @@ class _Notes_PageState extends State<Notes_Page> {
     _getNotes();
   }
 
-  List<DocumentSnapshot> _getFilteredNotes() {
-    if (_searchText.isEmpty) {
-      return Subjects;
-    } else {
-      return Subjects.where((note) {
-        String title = note['title'].toLowerCase();
-
-        String searchText = _searchText.toLowerCase();
-        return title.contains(searchText);
-      }).toList();
-    }
-  }
 
   void _searchNotes(String searchText) {
     setState(() {
-      _searchText = searchText;
     });
   }
 

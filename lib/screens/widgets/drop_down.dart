@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sliate/color.dart';
 
 class dropmenu extends StatefulWidget {
+  const dropmenu({super.key});
+
   @override
   _dropmenuState createState() => _dropmenuState();
 }
@@ -24,7 +26,7 @@ class _dropmenuState extends State<dropmenu> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 // Container(
@@ -46,7 +48,7 @@ class _dropmenuState extends State<dropmenu> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
+                      const Row(
                         children: [
                           Icon(Icons.nightlight,color: Colors.grey,),
                            SizedBox(
@@ -66,7 +68,7 @@ class _dropmenuState extends State<dropmenu> {
                     ],
                   ),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.notifications),
                   title: Text('Notification'),
                  trailing: Icon(
@@ -74,12 +76,12 @@ class _dropmenuState extends State<dropmenu> {
                     size: 30,
                   ),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Account Preferences'),
                   trailing: Icon(Icons.keyboard_arrow_right_outlined,size: 30,),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.share),
                   title: Text('Invite a friend'),
                 trailing: Icon(
@@ -87,7 +89,7 @@ class _dropmenuState extends State<dropmenu> {
                     size: 30,
                   ),
                 ),
-                ListTile(
+                const ListTile(
                   leading: Icon(Icons.call),
                   title: Text('Contact us'),
                 trailing: Icon(
@@ -95,7 +97,7 @@ class _dropmenuState extends State<dropmenu> {
                     size: 30,
                   ),
                 ),
-                 ListTile(
+                 const ListTile(
                   leading: Icon(Icons.logout),
                   title: Text('Sign Out'),
                 trailing: Icon(
@@ -116,9 +118,9 @@ class _dropmenuState extends State<dropmenu> {
     return PopupMenuButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
-        side: BorderSide(color: Colors.grey),
+        side: const BorderSide(color: Colors.grey),
       ),
-      icon: Icon(
+      icon: const Icon(
         Icons.more_vert,
         color: Colors.black,
       ),
@@ -126,14 +128,14 @@ class _dropmenuState extends State<dropmenu> {
         PopupMenuItem(
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.settings,
                 color: Colors.black,
               ),
               GestureDetector(
                 child: Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text('Settings'),
+                  margin: const EdgeInsets.only(left: 10),
+                  child: const Text('Settings'),
                 ),
                 onTap: () => {_showBottomSheet(context)},
               )
@@ -143,13 +145,13 @@ class _dropmenuState extends State<dropmenu> {
         PopupMenuItem(
           child: Row(
             children: [
-              Icon(
+              const Icon(
                 Icons.settings,
                 color: Colors.black,
               ),
               Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text('About'),
+                margin: const EdgeInsets.only(left: 10),
+                child: const Text('About'),
               )
             ],
           ),

@@ -6,6 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class CourseDetailsPage extends StatefulWidget {
+  const CourseDetailsPage({super.key});
+
   @override
   _CourseDetailsPageState createState() => _CourseDetailsPageState();
 }
@@ -64,146 +66,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
     });
   }
 
-  void _showUpdateCourseDetails(String courseId, String title, String year,
-      String semester, String department, String imageUrl) {
-    _titleController.text = title;
-    _yearController.text = year;
-    _semesterController.text = semester;
-    _departmentController.text = department;
-    setState(() {
-      _imageFile = null;
-    });
 
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Update Course Details',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.0,
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _titleController,
-                  decoration: const InputDecoration(
-                    labelText: 'Title',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _yearController,
-                  decoration: const InputDecoration(
-                    labelText: 'Year',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _semesterController,
-                  decoration: const InputDecoration(
-                    labelText: 'Semester',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: _departmentController,
-                  decoration: const InputDecoration(
-                    labelText: 'Department',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => _pickImage(ImageSource.camera),
-                        child: const Text('Take a Photo'),
-                      ),
-                    ),
-                    const SizedBox(width: 16.0),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => _pickImage(ImageSource.gallery),
-                        child: const Text('Choose from Gallery'),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16.0),
-                ElevatedButton(
-                  onPressed: () async {
-                    String newImageUrl = imageUrl;
-
-                    if (_imageFile != null) {
-                      // Upload new image to Firebase Storage
-                      final Reference storageReference =
-                          FirebaseStorage.instance.ref().child(
-                              'course_images/${DateTime.now().millisecondsSinceEpoch}.jpg');
-                      final UploadTask uploadTask =
-                          storageReference.putFile(_imageFile!);
-                      final TaskSnapshot downloadUrl = (await uploadTask);
-                      newImageUrl = (await downloadUrl.ref.getDownloadURL());
-                    }
-
-                    await _db.collection('courses').doc(courseId).update({
-                      'title': _titleController.text,
-                      'year': _yearController.text,
-                      'semester': _semesterController.text,
-                      'department': _departmentController.text,
-                      'image': newImageUrl,
-                    });
-
-                    _titleController.clear();
-                    _yearController.clear();
-                    _semesterController.clear();
-                    _departmentController.clear();
-                    setState(() {
-                      _imageFile = null;
-                    });
-
-                    Navigator.pop(context);
-                  },
-                  child: const Text('Update'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showDeleteCourseDetails(String courseId) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Delete Course Details'),
-          content: const Text('Are you sure you want to delete this course?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                await _db.collection('courses').doc(courseId).delete();
-                Navigator.pop(context);
-              },
-              child: const Text('Delete'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +74,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
         ),
         actions: [

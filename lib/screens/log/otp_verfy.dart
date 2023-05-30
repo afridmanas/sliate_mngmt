@@ -5,7 +5,7 @@ import 'package:sliate/screens/log/login_page.dart';
 class OTPVerificationPage extends StatefulWidget {
   final String verificationId;
 
-  OTPVerificationPage({required this.verificationId});
+  const OTPVerificationPage({super.key, required this.verificationId});
 
   @override
   _OTPVerificationPageState createState() => _OTPVerificationPageState();
@@ -19,10 +19,10 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OTP Verification'),
+        title: const Text('OTP Verification'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -30,7 +30,7 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
             children: [
               TextFormField(
                 controller: _otpController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Verification Code',
                 ),
                 validator: (value) {
@@ -40,9 +40,9 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                   return null;
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
-                child: Text('Verify'),
+                child: const Text('Verify'),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     PhoneAuthCredential credential =
@@ -56,18 +56,18 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: ((context) => sign_in()),
+                          builder: ((context) => const sign_in()),
                         ),
                       );
-                    } on FirebaseAuthException catch (e) {
+                    } on FirebaseAuthException {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Text('Error'),
+                          title: const Text('Error'),
                           //content: Text(e.message),
                           actions: [
                             ElevatedButton(
-                              child: Text('OK'),
+                              child: const Text('OK'),
                               onPressed: () => Navigator.pop(context),
                             ),
                           ],

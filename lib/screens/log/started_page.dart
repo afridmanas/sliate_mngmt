@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sliate/screens/log/login_page.dart';
-import 'package:sliate/screens/log/signup_page.dart';
 
 // ignore: camel_case_types
 class started_page extends StatefulWidget {

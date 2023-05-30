@@ -43,13 +43,13 @@ class _home_design1State extends State<home_design1> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          actions: [dropmenu()],
+          actions: const [dropmenu()],
         ),
         backgroundColor: Colors.white,
         drawer: const drawer(),
         body: IndexedStack(
           index: _selectedIndex,
-          children: [const hm_ds_1(), userpage(), const notes_page()],
+          children: const [hm_ds_1(), userpage(), notes_page()],
         ),
         bottomNavigationBar: bottom_nav_bar(),
       ),
@@ -95,6 +95,8 @@ class _home_design1State extends State<home_design1> {
 }
 
 class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -104,6 +106,8 @@ class SearchPage extends StatelessWidget {
 }
 
 class userpage extends StatelessWidget {
+  const userpage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Center(
@@ -175,7 +179,8 @@ class _hm_ds_1State extends State<hm_ds_1> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const Notes_Page()),
+                      MaterialPageRoute(
+                          builder: (context) => const Notes_Page()),
                     );
                   },
                   child: Text(
@@ -229,13 +234,10 @@ class _hm_ds_1State extends State<hm_ds_1> {
             Container(
               height: 120,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(40.0),
-                  topRight: Radius.circular(40.0),
-                ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
                 // color: secondary,
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage(
                     'assets/images/logo/manas.jpg',
                   ),

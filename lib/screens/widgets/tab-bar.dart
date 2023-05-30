@@ -22,10 +22,10 @@ class _tab_barState extends State<tab_bar> with TickerProviderStateMixin {
       appBar: TabBar(
           indicatorColor: Colors.black,
           labelColor: Colors.black,
-          labelStyle: TextStyle(fontWeight: FontWeight.bold),
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
           unselectedLabelColor: Colors.grey,
           controller: _tabcontroller,
-          tabs: [
+          tabs: const [
             Tab(child: Text('All')),
             Tab(child: Text('HNDIT')),
             Tab(child: Text('HNDA')),

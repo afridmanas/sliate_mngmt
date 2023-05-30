@@ -28,7 +28,7 @@ class _splash_screenState extends State<splash_screen> {
   route() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => sign_in()),
+      MaterialPageRoute(builder: (context) => const sign_in()),
     );
   }
 

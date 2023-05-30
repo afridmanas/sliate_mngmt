@@ -16,14 +16,13 @@ class _newsfeedState extends State<newsfeed> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
         ),
       ),
+      // ignore: prefer_const_constructors
       body: Center(
-          child: Container(
-        child: Text('newsfeed Page'),
-      )),
+          child: const Text('newsfeed Page')),
     );
   }
 }

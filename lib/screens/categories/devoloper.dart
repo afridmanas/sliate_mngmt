@@ -32,7 +32,7 @@ class DeveloperInfoPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
         ),
       ),
@@ -45,38 +45,38 @@ class DeveloperInfoPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 50.0,
                     backgroundImage: AssetImage(
                       'assets/images/logo/manas.jpg',
                     ),
                     // fit: BoxFit.fitWidth,
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0,
                           ),
                         ),
-                        SizedBox(height: 8.0),
+                        const SizedBox(height: 8.0),
                         Row(
                           children: [
                             IconButton(
-                              icon: Icon(Icons.email),
+                              icon: const Icon(Icons.email),
                               onPressed: () => _launchURL('mailto:$email'),
                             ),
                             IconButton(
-                              icon: Icon(Icons.phone),
+                              icon: const Icon(Icons.phone),
                               onPressed: () => _launchURL('tel:$phone'),
                             ),
                             IconButton(
-                              icon: Icon(Icons.link),
+                              icon: const Icon(Icons.link),
                               onPressed: () => _launchURL(githubLink),
                             ),
                           ],
@@ -87,48 +87,48 @@ class DeveloperInfoPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'About Me',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   Text(
                     about,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Projects',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0,
                     ),
                   ),
-                  SizedBox(height: 8.0),
+                  const SizedBox(height: 8.0),
                   ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: projects.length,
                     itemBuilder: (context, index) {
                       return ListTile(
@@ -139,7 +139,7 @@ class DeveloperInfoPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Container(
               color: Colors.white,
               padding: const EdgeInsets.all(16.0),
@@ -147,23 +147,23 @@ class DeveloperInfoPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.link),
+                    icon: const Icon(Icons.link),
                     onPressed: () => _launchURL(githubLink),
                   ),
                   IconButton(
-                    icon: Icon(Icons.email),
+                    icon: const Icon(Icons.email),
                     onPressed: () => _launchURL('mailto:$email'),
                   ),
                   IconButton(
-                    icon: Icon(Icons.phone),
+                    icon: const Icon(Icons.phone),
                     onPressed: () => _launchURL('tel:$phone'),
                   ),
                   IconButton(
-                    icon: Icon(Icons.email),
+                    icon: const Icon(Icons.email),
                     onPressed: () => _launchURL(linkedinLink),
                   ),
                   IconButton(
-                    icon: Icon(Icons.email),
+                    icon: const Icon(Icons.email),
                     onPressed: () => _launchURL(twitterLink),
                   ),
                 ],

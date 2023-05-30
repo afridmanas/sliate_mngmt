@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class staff extends StatelessWidget {
+  const staff({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,13 +12,13 @@ class staff extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          iconTheme: IconThemeData(
+          iconTheme: const IconThemeData(
             color: Colors.black, // Change the color of the back arrow here
           ),
         ),
         body: Column(
           children: [
-            Container(
+            const SizedBox(
                 height: 150, width: 400, child: Center(child: Text('Manas'))),
             Expanded(
               child: ListView.builder(
@@ -27,12 +29,12 @@ class staff extends StatelessWidget {
                     child: Container(
                       width: 100,
                       height: 50,
-                      margin: EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(10),
                       color: Colors.blue,
                       child: Center(
                         child: Text(
                           'Box ${index + 1}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),

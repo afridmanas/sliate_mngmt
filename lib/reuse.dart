@@ -176,7 +176,7 @@ class drawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => staff()),
+                MaterialPageRoute(builder: (context) => const staff()),
               );
             },
           ),
@@ -196,7 +196,7 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => StaggeredGridPage(),
+                    builder: (context) => const StaggeredGridPage(),
                   ),
                 );
               }),
@@ -227,7 +227,7 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
+                    builder: (context) => const SettingsPage(),
                   ),
                 );
               }),
@@ -252,7 +252,7 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PassPaperList(),
+                    builder: (context) => const PassPaperList(),
                   ),
                 );
               }),
@@ -342,22 +342,3 @@ class _nav_barState extends State<nav_bar> {
   }
 }
 
-void _showBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        height: 200.0,
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              // Add your onPressed logic here
-              Navigator.pop(context);
-            },
-            child: const Text('Close Bottom Sheet'),
-          ),
-        ),
-      );
-    },
-  );
-}

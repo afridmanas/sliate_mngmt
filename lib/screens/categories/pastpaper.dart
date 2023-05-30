@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:sliate/color.dart';
 
 class PassPaperList extends StatefulWidget {
+  const PassPaperList({super.key});
+
   @override
   _PassPaperListState createState() => _PassPaperListState();
 }

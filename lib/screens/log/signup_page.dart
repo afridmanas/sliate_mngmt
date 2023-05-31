@@ -1,13 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sliate/screens/home/home_design1.dart';
 import 'package:sliate/screens/log/login_page.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: camel_case_types
 class sign_up extends StatefulWidget {
-  const sign_up({super.key});
-
   @override
   State<sign_up> createState() => _sign_upState();
 }
@@ -21,8 +23,7 @@ class _sign_upState extends State<sign_up> {
   final _passwordController = TextEditingController();
   //final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _firstnamecontroller = TextEditingController();
-  final _surenamecontroller = TextEditingController();
+  final _fullNameController = TextEditingController();
 
   // void _submitForm() async {
   //   if (_formKey.currentState!.validate()) {
@@ -81,72 +82,53 @@ class _sign_upState extends State<sign_up> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
+                Container(
                   height: height / 2.7,
                   width: width,
-                  child: Center(
-                    child: Text(
-                      'SLIATE',
-                      style: GoogleFonts.mavenPro(
-                        textStyle: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 50,
-                          fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 120, left: 30, right: 30),
+                    child: Center(
+                      child: Text(
+                        'SLIATE',
+                        style: GoogleFonts.mavenPro(
+                          textStyle: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(30.0),
+                  padding: const EdgeInsets.only(top: 100, left: 40, right: 40),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextFormField(
-                              controller: _firstnamecontroller,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'First Name is required';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(20.0),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                labelText: 'Firstname',
-                                labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.0),
+                        TextFormField(
+                          controller: _fullNameController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Full name is required';
+                            }
+                            return null;
+                          },
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(20.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
                               ),
                             ),
-                            TextFormField(
-                              controller: _surenamecontroller,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Surename is required';
-                                }
-                                return null;
-                              },
-                              decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.all(20.0),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                labelText: 'Surename',
-                                labelStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.0),
-                              ),
-                            ),
-                          ],
+                            labelText: 'Full Name',
+                            labelStyle: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.0),
+                          ),
                         ),
                         const SizedBox(
                           height: 8,
@@ -237,8 +219,7 @@ class _sign_upState extends State<sign_up> {
                                     .doc(userCredential.user!.uid)
                                     .set(
                                   {
-                                    'firstname': _firstnamecontroller.text,
-                                    'surename': _surenamecontroller.text,
+                                    'name': _fullNameController.text,
                                     'email': _emailController.text,
                                     'password': _passwordController.text,
                                     'phone': "+94${_phoneController.text}",
@@ -250,11 +231,11 @@ class _sign_upState extends State<sign_up> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text('Error'),
-                                      content: const Text('The password is too weak'),
+                                      title: Text('Error'),
+                                      content: Text('The password is too weak'),
                                       actions: [
                                         ElevatedButton(
-                                          child: const Text('OK'),
+                                          child: Text('OK'),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         ),
@@ -265,12 +246,12 @@ class _sign_upState extends State<sign_up> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: const Text('Error'),
+                                      title: Text('Error'),
                                       content:
-                                          const Text('The email is already in use'),
+                                          Text('The email is already in use'),
                                       actions: [
                                         ElevatedButton(
-                                          child: const Text('OK'),
+                                          child: Text('OK'),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         ),
@@ -309,7 +290,7 @@ class _sign_upState extends State<sign_up> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const sign_in(),
+                                    builder: (context) => sign_in(),
                                   ),
                                 );
                               },
@@ -323,15 +304,6 @@ class _sign_upState extends State<sign_up> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 40),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.facebook),
-                            SizedBox(width: 20),
-                            Icon(Icons.email)
-                          ],
-                        )
                       ],
                     ),
                   ),

@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliate/color.dart';
 import 'package:sliate/reuse.dart';
+import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:sliate/screens/home/news_veiw.dart';
 import 'package:sliate/screens/home/Notes_page.dart';
+import 'package:sliate/screens/log/login_page.dart';
 import 'package:sliate/screens/tabs/notes_page.dart';
 import 'package:sliate/screens/widgets/drop_down.dart';
 
@@ -21,6 +25,9 @@ class home_design1 extends StatefulWidget {
 class _home_design1State extends State<home_design1> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +56,7 @@ class _home_design1State extends State<home_design1> {
         drawer: const drawer(),
         body: IndexedStack(
           index: _selectedIndex,
-          children: const [hm_ds_1(), userpage(), notes_page()],
+          children: const [hm_ds_1(), newsfeed(), userpage(), notes_page()],
         ),
         bottomNavigationBar: bottom_nav_bar(),
       ),

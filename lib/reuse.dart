@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
 import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -7,6 +9,7 @@ import 'package:sliate/screens/categories/pastpaper.dart';
 import 'package:sliate/screens/categories/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
 import 'package:sliate/screens/home/Notes_page.dart';
+import 'package:sliate/screens/log/login_page.dart';
 import 'package:sliate/screens/widgets/demo.dart';
 
 // ignore: camel_case_types
@@ -117,6 +120,18 @@ class drawer extends StatelessWidget {
     super.key,
   });
 
+  void handleLogout(BuildContext context) {
+    FirebaseAuth.instance.signOut().then((_) {
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.remove('isLoggedIn');
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => sign_in()),
+        );
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -207,11 +222,11 @@ class drawer extends StatelessWidget {
               ),
               onTap: () {}),
           ListTile(
-              title: const Text('Events'),
+              title: const Text('Log Out'),
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
+              onTap: () {handleLogout(context);}),
           ListTile(
               title: const Text('Forms'),
               leading: const Icon(

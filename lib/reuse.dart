@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sliate/screens/categories/Course_page.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
-import 'package:sliate/screens/categories/newsfeed.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sliate/screens/categories/pastpaper.dart';
 import 'package:sliate/screens/categories/settings.dart';
@@ -11,85 +11,6 @@ import 'package:sliate/screens/categories/staff.dart';
 import 'package:sliate/screens/home/Notes_page.dart';
 import 'package:sliate/screens/log/login_page.dart';
 import 'package:sliate/screens/widgets/demo.dart';
-
-// ignore: camel_case_types
-class title_text extends StatelessWidget {
-  const title_text({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      'User Login Page',
-      style: TextStyle(
-          fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.white),
-    );
-  }
-}
-
-// ignore: camel_case_types
-class button extends StatefulWidget {
-  const button({super.key});
-
-  @override
-  State<button> createState() => _buttonState();
-}
-
-// ignore: camel_case_types
-class _buttonState extends State<button> {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ButtonStyle(
-        backgroundColor:
-            MaterialStateProperty.all<Color>(Colors.blue), // Set button color
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), // Set button border radius
-          ),
-        ),
-        padding: MaterialStateProperty.all<EdgeInsets>(
-          const EdgeInsets.symmetric(
-              horizontal: 50, vertical: 15), // Set button padding
-        ),
-      ),
-      child: const Text(
-        'Sign In', // Button text
-        style: TextStyle(
-          fontSize: 18, // Set text font size
-          fontWeight: FontWeight.bold, // Set text font weight
-          color: Colors.white, // Set text color
-        ),
-      ),
-    );
-  }
-}
-
-class SignInButton extends StatelessWidget {
-  const SignInButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: const Text(
-          'Sign In',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-}
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -151,20 +72,6 @@ class drawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.book,
-            ),
-            title: const Text('News Feed'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const newsfeed(),
-                ),
-              );
-            },
-          ),
-          ListTile(
             title: const Text('Notes'),
             leading: const Icon(
               Icons.note_alt_sharp,
@@ -177,13 +84,6 @@ class drawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Lecturers'),
-            leading: const Icon(
-              Icons.supervised_user_circle_outlined,
-            ),
-            onTap: () {},
-          ),
-          ListTile(
             title: const Text('Managment Staff'),
             leading: const Icon(
               Icons.newspaper,
@@ -194,13 +94,6 @@ class drawer extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const staff()),
               );
             },
-          ),
-          ListTile(
-            title: const Text('Departments'),
-            leading: const Icon(
-              Icons.settings,
-            ),
-            onTap: () {},
           ),
           ListTile(
               title: const Text('Test'),
@@ -220,19 +113,14 @@ class drawer extends StatelessWidget {
               leading: const Icon(
                 Icons.info,
               ),
-              onTap: () {}),
-          ListTile(
-              title: const Text('Log Out'),
-              leading: const Icon(
-                Icons.info,
-              ),
-              onTap: () {handleLogout(context);}),
-          ListTile(
-              title: const Text('Forms'),
-              leading: const Icon(
-                Icons.info,
-              ),
-              onTap: () {}),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CourseDetailsPage(),
+                  ),
+                );
+              }),
           ListTile(
               title: const Text('Settings'),
               leading: const Icon(
@@ -246,18 +134,6 @@ class drawer extends StatelessWidget {
                   ),
                 );
               }),
-          ListTile(
-              title: const Text('Library'),
-              leading: const Icon(
-                Icons.info,
-              ),
-              onTap: () {}),
-          ListTile(
-              title: const Text('Navigation Map'),
-              leading: const Icon(
-                Icons.info,
-              ),
-              onTap: () {}),
           ListTile(
               title: const Text('Past Papers'),
               leading: const Icon(
@@ -283,6 +159,14 @@ class drawer extends StatelessWidget {
                     builder: (context) => DeveloperInfoPage(),
                   ),
                 );
+              }),
+          ListTile(
+              title: const Text('Log Out'),
+              leading: const Icon(
+                Icons.info,
+              ),
+              onTap: () {
+                handleLogout(context);
               }),
         ],
       ),
@@ -356,4 +240,3 @@ class _nav_barState extends State<nav_bar> {
     );
   }
 }
-

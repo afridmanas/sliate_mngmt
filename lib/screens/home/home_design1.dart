@@ -26,39 +26,67 @@ class _home_design1State extends State<home_design1> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
-
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          leading: SizedBox(
-            width: 50.0,
-            height: 50.0,
-            child: IconButton(
-              icon: const Icon(
-                Icons.menu_sharp,
-                color: Colors.black,
+    return WillPopScope(
+      onWillPop: () async {
+        bool exitConfirmation = await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('Exit App'),
+              content: const Text('Are you sure you want to exit the app?'),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pop(false); // Pop the alert dialog and return false
+                  },
+                ),
+                TextButton(
+                  child: const Text('Exit'),
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pop(true); // Pop the alert dialog and return true
+                  },
+                ),
+              ],
+            );
+          },
+        );
+
+        return exitConfirmation; 
+      },
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            leading: SizedBox(
+              width: 50.0,
+              height: 50.0,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.menu_sharp,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  _scaffoldKey.currentState!.openDrawer();
+                },
               ),
-              onPressed: () {
-                _scaffoldKey.currentState!.openDrawer();
-              },
             ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: const [dropmenu()],
           ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: const [dropmenu()],
+          backgroundColor: Colors.white,
+          drawer: const drawer(),
+          body: IndexedStack(
+            index: _selectedIndex,
+            children: const [hm_ds_1(), newsfeed(), userpage(), notes_page()],
+          ),
+          bottomNavigationBar: bottom_nav_bar(),
         ),
-        backgroundColor: Colors.white,
-        drawer: const drawer(),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: const [hm_ds_1(), newsfeed(), userpage(), notes_page()],
-        ),
-        bottomNavigationBar: bottom_nav_bar(),
       ),
     );
   }

@@ -59,7 +59,7 @@ class _sign_inState extends State<sign_in> {
   void navigateToHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (BuildContext context) => home_design1()),
+      MaterialPageRoute(builder: (BuildContext context) => const home_design1()),
     );
   }
 

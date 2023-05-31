@@ -48,7 +48,6 @@ dependencies:
   email_validator: ^2.1.17
   form_field_validator: ^1.1.0
   firebase_auth: ^4.6.1
-  
   firebase_storage: ^11.2.1
   image_picker: ^0.8.7+5
   url_launcher: ^6.1.11

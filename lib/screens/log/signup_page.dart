@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliate/screens/home/home_design1.dart';
 import 'package:sliate/screens/log/login_page.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:form_field_validator/form_field_validator.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: camel_case_types
 class sign_up extends StatefulWidget {
+  const sign_up({super.key});
+
   @override
   State<sign_up> createState() => _sign_upState();
 }
@@ -231,11 +229,11 @@ class _sign_upState extends State<sign_up> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text('The password is too weak'),
+                                      title: const Text('Error'),
+                                      content: const Text('The password is too weak'),
                                       actions: [
                                         ElevatedButton(
-                                          child: Text('OK'),
+                                          child: const Text('OK'),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         ),
@@ -246,12 +244,12 @@ class _sign_upState extends State<sign_up> {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
-                                      title: Text('Error'),
+                                      title: const Text('Error'),
                                       content:
-                                          Text('The email is already in use'),
+                                          const Text('The email is already in use'),
                                       actions: [
                                         ElevatedButton(
-                                          child: Text('OK'),
+                                          child: const Text('OK'),
                                           onPressed: () =>
                                               Navigator.pop(context),
                                         ),

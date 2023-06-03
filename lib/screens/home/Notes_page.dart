@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
-import 'package:sliate/screens/categories/course-details.dart';
+import 'package:sliate/screens/Notes/course-details.dart';
 
 class Notes_Page extends StatefulWidget {
   const Notes_Page({Key? key}) : super(key: key);
@@ -12,13 +12,11 @@ class Notes_Page extends StatefulWidget {
 }
 
 class _Notes_PageState extends State<Notes_Page> {
-  
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
 
   void _getNotes() async {
-    setState(() {
-    });
+    setState(() {});
     QuerySnapshot querySnapshot =
         await _firestore.collection('sub_title').get();
     setState(
@@ -34,21 +32,17 @@ class _Notes_PageState extends State<Notes_Page> {
     _getNotes();
   }
 
-
   void _searchNotes(String searchText) {
-    setState(() {
-    });
+    setState(() {});
   }
 
-
- 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backround,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: backround,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
@@ -102,7 +96,7 @@ class _Notes_PageState extends State<Notes_Page> {
               onChanged: (value) => _searchNotes(value),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: bg,
+                fillColor: backround,
                 hintText: 'Search Here',
                 prefixIcon: const Icon(Icons.search_sharp),
                 border: OutlineInputBorder(
@@ -133,7 +127,8 @@ class _Notes_PageState extends State<Notes_Page> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const CourseDetails()),
+                      MaterialPageRoute(
+                          builder: (context) => const CourseDetails()),
                     );
                   },
                   child: Text(
@@ -200,7 +195,6 @@ class _Notes_PageState extends State<Notes_Page> {
           ),
         ],
       ),
-      
     );
   }
 }

@@ -55,6 +55,11 @@ dependencies:
   flutter_signin_button: ^2.0.0
   fluttertoast: ^8.2.2
   shared_preferences: ^2.1.1
+  github_sign_in: ^0.0.5-dev.4
+  iconly: ^1.0.1
+  flutter_pdfview: ^1.3.1
+  percent_indicator: ^4.2.3
+  smooth_page_indicator: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -84,6 +89,7 @@ flutter:
     - assets/images/sliate/
     - assets/images/icons/
     - assets/images/logo/
+    - assets/icons/
     
   #   - images/a_dot_ham.jpeg
 

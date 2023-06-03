@@ -1,11 +1,6 @@
-import 'dart:ui';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/screens/home/home_design1.dart';
 import 'package:sliate/screens/log/forget_pass.dart';
@@ -24,7 +19,6 @@ class _sign_inState extends State<sign_in> {
   final _passwordController = TextEditingController();
   bool _isLoggedIn = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
 
   @override
   void initState() {
@@ -51,7 +45,7 @@ class _sign_inState extends State<sign_in> {
     prefs.setBool('isLoggedIn', true);
   }
 
-   void removeLoginStatus() async {
+  void removeLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('isLoggedIn');
   }
@@ -59,7 +53,8 @@ class _sign_inState extends State<sign_in> {
   void navigateToHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (BuildContext context) => const home_design1()),
+      MaterialPageRoute(
+          builder: (BuildContext context) => const home_design1()),
     );
   }
 
@@ -133,17 +128,24 @@ class _sign_inState extends State<sign_in> {
                                 TextField(
                                   controller: _emailController,
                                   decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.email_rounded),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
                                     contentPadding: EdgeInsets.all(20.0),
                                     border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(10.0),
                                       ),
                                     ),
                                     labelText: 'Email Address',
                                     labelStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.0),
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14.0,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -153,6 +155,11 @@ class _sign_inState extends State<sign_in> {
                                   controller: _passwordController,
                                   obscureText: true,
                                   decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.lock),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.grey),
+                                    ),
                                     contentPadding: EdgeInsets.all(15.0),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
@@ -224,7 +231,7 @@ class _sign_inState extends State<sign_in> {
                                                     const forget_password()));
                                       },
                                       child: const Text(
-                                        'forget passwword?',
+                                        'forget password?',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -257,42 +264,12 @@ class _sign_inState extends State<sign_in> {
                                   ],
                                 ),
                                 const SizedBox(height: 15),
-                                SignInButton(
-                                  Buttons.GitHub,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16)),
-                                  onPressed: () async {
-                                    try {
-                                      {
-                                        final result =
-                                            await _auth.signInWithProvider(
-                                          GithubAuthProvider(),
-                                        );
-
-                                        if (result.user != null) {
-                                          // The user is signed in
-                                          final userData = {
-                                            'displayName':
-                                                result.user!.displayName,
-                                            'email': result.user!.email,
-                                            'photoURL': result.user!.photoURL,
-                                          };
-
-                                          await FirebaseFirestore.instance
-                                              .collection('users')
-                                              .doc(result.user!.uid)
-                                              .set(userData);
-                                        }
-                                      }
-                                      ;
-                                    } on FirebaseAuthException catch (e) {
-                                      Fluttertoast.showToast(
-                                        msg: 'Github Signin have Some Error',
-                                      );
-                                    }
-                                  },
-                                ),
+                                SignInButton(Buttons.Google,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(16)),
+                                    onPressed: () {}),
                               ],
                             ),
                           ),

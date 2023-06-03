@@ -18,7 +18,7 @@ class _dropmenuState extends State<dropmenu> {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: secondary,
+            color: image_color,
           ),
           height: 380.0,
           child: Center(

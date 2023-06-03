@@ -80,7 +80,7 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [
-              const PopupMenuItem(
+               PopupMenuItem(
                 value: 'add',
                 child: Text('Add Course Details'),
               ),
@@ -176,11 +176,11 @@ class _CourseDetailsPageState extends State<CourseDetailsPage> {
             );
           }
 
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-            ),
+          return ListView.builder(
+            // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //   crossAxisCount: 2,
+            //   childAspectRatio: 0.75,
+            // ),
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) {
               var course = snapshot.data!.docs[index];

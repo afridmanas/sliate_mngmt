@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/screens/categories/newsfeed_view.dart';
-import 'package:sliate/screens/home/news_veiw.dart';
 
 class newsfeed extends StatefulWidget {
   const newsfeed({Key? key}) : super(key: key);
@@ -16,12 +15,10 @@ class _newsfeedState extends State<newsfeed> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
+        padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

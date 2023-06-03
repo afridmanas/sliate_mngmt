@@ -97,7 +97,7 @@ class _newsfeed_viewState extends State<newsfeed_view> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 10.0, right: 10),
+          padding: const EdgeInsets.only(left: 10.0, right: 10),
           child: Column(
             children: [
               // TextField(
@@ -111,20 +111,20 @@ class _newsfeed_viewState extends State<newsfeed_view> {
               //   onPressed: saveParagraph,
               //   child: Text('Save Paragraph'),
               // ),
-              ListTile(
-                leading: const CircleAvatar(
+              const ListTile(
+                leading: CircleAvatar(
                   backgroundImage: AssetImage(
                     'assets/images/logo/manas.jpg',
                   ),
                 ),
-                title: const Text(
+                title: Text(
                   'Manas Afrid',
                   style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
-                subtitle: const Text(
+                subtitle: Text(
                   '12 min ago',
                   style: TextStyle(
                     color: Colors.grey,
@@ -146,7 +146,7 @@ class _newsfeed_viewState extends State<newsfeed_view> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Container(
@@ -156,7 +156,7 @@ class _newsfeed_viewState extends State<newsfeed_view> {
                   child: Text(
                     paragraph,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(fontSize: 16.0),
+                    style: const TextStyle(fontSize: 16.0),
                   ),
                 ),
               ),

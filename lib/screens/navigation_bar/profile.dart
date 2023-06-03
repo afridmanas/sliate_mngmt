@@ -14,11 +14,11 @@ class _profileState extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: bg,
+        backgroundColor: backround,
         appBar: AppBar(
-          iconTheme: const IconThemeData(color: text),
+          iconTheme: const IconThemeData(color: text_color),
           elevation: 0,
-          backgroundColor: bg,
+          backgroundColor: backround,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -30,7 +30,7 @@ class _profileState extends State<profile> {
                   elevation: 0,
                   child: Container(
                     decoration: BoxDecoration(
-                      color: secondary,
+                      color: image_color,
                       borderRadius: BorderRadius.circular(20),
                     ),
                     height: 250,
@@ -52,7 +52,7 @@ class _profileState extends State<profile> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: secondary,
+                          color: image_color,
                         ),
                       ),
                     ),
@@ -66,7 +66,7 @@ class _profileState extends State<profile> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: secondary,
+                          color: image_color,
                         ),
                       ),
                     ),
@@ -80,7 +80,7 @@ class _profileState extends State<profile> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: secondary,
+                          color: image_color,
                         ),
                       ),
                     ),
@@ -94,7 +94,7 @@ class _profileState extends State<profile> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: secondary,
+                          color: image_color,
                         ),
                       ),
                     ),

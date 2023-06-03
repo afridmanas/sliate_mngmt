@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sliate/screens/categories/Course_page.dart';
+import 'package:sliate/screens/Notes/Course_page.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:sliate/screens/categories/pastpaper.dart';
+import 'package:sliate/screens/Notes/notes_home.dart';
+import 'package:sliate/screens/Notes/pastpaper.dart';
+import 'package:sliate/screens/categories/events.dart';
 import 'package:sliate/screens/categories/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
 import 'package:sliate/screens/home/Notes_page.dart';
@@ -109,7 +112,7 @@ class drawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              title: const Text('Course Modules'),
+              title: const Text('Academic Notes'),
               leading: const Icon(
                 Icons.info,
               ),
@@ -117,14 +120,27 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const CourseDetailsPage(),
+                    builder: (context) => const Notes_home(),
                   ),
                 );
               }),
           ListTile(
+              title: const Text('Course Modules'),
+              leading: const Icon(
+                IconlyLight.document,
+              ),
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const CourseDetailsPage(),
+                //   ),
+                // );
+              }),
+          ListTile(
               title: const Text('Settings'),
               leading: const Icon(
-                Icons.info,
+                IconlyLight.setting,
               ),
               onTap: () {
                 Navigator.push(
@@ -134,10 +150,23 @@ class drawer extends StatelessWidget {
                   ),
                 );
               }),
+          // ListTile(
+          //     title: const Text('Events'),
+          //     leading: const Icon(
+          //       Icons.info,
+          //     ),
+          //     onTap: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => const Events(),
+          //         ),
+          //       );
+          //     }),
           ListTile(
               title: const Text('Past Papers'),
               leading: const Icon(
-                Icons.info,
+                IconlyLight.paper,
               ),
               onTap: () {
                 Navigator.push(
@@ -150,7 +179,7 @@ class drawer extends StatelessWidget {
           ListTile(
               title: const Text('Developer Info'),
               leading: const Icon(
-                Icons.info,
+                IconlyLight.profile,
               ),
               onTap: () {
                 Navigator.push(
@@ -163,7 +192,7 @@ class drawer extends StatelessWidget {
           ListTile(
               title: const Text('Log Out'),
               leading: const Icon(
-                Icons.info,
+                IconlyLight.logout,
               ),
               onTap: () {
                 handleLogout(context);
@@ -225,8 +254,8 @@ class _nav_barState extends State<nav_bar> {
               text: 'Search',
             ),
             GButton(
-              icon: LineIcons.user,
-              text: 'Profile',
+              icon: IconlyLight.setting,
+              text: 'Settings',
             ),
           ],
           selectedIndex: _selectedIndex,

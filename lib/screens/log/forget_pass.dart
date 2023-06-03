@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class forget_password extends StatefulWidget {
   const forget_password({super.key});
@@ -64,7 +62,6 @@ class _forget_passwordState extends State<forget_password> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -134,7 +131,7 @@ class _forget_passwordState extends State<forget_password> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 80,
           ),
           Center(

@@ -51,11 +51,11 @@ class _sign_inState extends State<sign_in> {
   }
 
   void navigateToHome() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-          builder: (BuildContext context) => const home_design1()),
-    );
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(
+    //       builder: (BuildContext context) => const home_design1()),
+    // );
   }
 
   @override
@@ -184,13 +184,13 @@ class _sign_inState extends State<sign_in> {
                                           password: _passwordController.text,
                                         );
 
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: ((context) =>
-                                                const home_design1()),
-                                          ),
-                                        );
+                                        // Navigator.push(
+                                        //   context,
+                                        //   MaterialPageRoute(
+                                        //     builder: ((context) =>
+                                        //         const home_design1()),
+                                        //   ),
+                                        // );
                                         _emailController.clear();
                                         _passwordController.clear();
                                       } on FirebaseAuthException catch (e) {

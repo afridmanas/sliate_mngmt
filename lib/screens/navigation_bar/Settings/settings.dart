@@ -68,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 title: Text(
-                  text!,
+                  'manas',
                   style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,

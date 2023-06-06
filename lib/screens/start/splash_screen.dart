@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sliate/screens/log/login_page.dart';
+import 'package:sliate/screens/navigation_bar/Home/home_page.dart';
 
 // ignore: camel_case_types
 class splash_screen extends StatefulWidget {
@@ -28,7 +29,9 @@ class _splash_screenState extends State<splash_screen> {
   route() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) =>  sign_in()),
+      MaterialPageRoute(builder: (context) => home_page()
+          //sign_in()
+          ),
     );
   }
 

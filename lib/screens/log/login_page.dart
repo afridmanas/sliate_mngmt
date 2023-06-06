@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliate/screens/home/home_design1.dart';
+import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
 import 'package:sliate/screens/log/forget_pass.dart';
 import 'package:sliate/screens/log/signup_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';

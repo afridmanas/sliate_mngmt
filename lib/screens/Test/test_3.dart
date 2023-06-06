@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class notes_page extends StatefulWidget {
-  const notes_page({super.key});
+class test_3 extends StatefulWidget {
+  const test_3({super.key});
 
   @override
-  State<notes_page> createState() => _notes_pageState();
+  State<test_3> createState() => _test_3State();
 }
 
-class _notes_pageState extends State<notes_page> {
+class _test_3State extends State<test_3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

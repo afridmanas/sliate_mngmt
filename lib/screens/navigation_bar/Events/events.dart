@@ -165,16 +165,16 @@ class _ContainerListState extends State<ContainerList> {
                         children: [
                           Text(
                             'Bottom Text $index',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             'Today\'s Date: ${DateFormat.yMd().format(DateTime.now())}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14,
                               color: Colors.white,
                             ),
@@ -197,7 +197,7 @@ class _ContainerListState extends State<ContainerList> {
               child: SmoothPageIndicator(
                 controller: pageController,
                 count: 5, // Replace with your desired number of containers
-                effect: WormEffect(
+                effect: const WormEffect(
                   dotColor: Colors.grey,
                   activeDotColor: Colors.black,
                   dotHeight: 8,

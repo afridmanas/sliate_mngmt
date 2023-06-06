@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sliate/screens/Notes/Course_page.dart';
 import 'package:sliate/screens/categories/devoloper.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sliate/screens/Notes/notes_home.dart';
 import 'package:sliate/screens/Notes/pastpaper.dart';
-import 'package:sliate/screens/categories/events.dart';
-import 'package:sliate/screens/categories/settings.dart';
+import 'package:sliate/screens/navigation_bar/Settings/settings.dart';
 import 'package:sliate/screens/categories/staff.dart';
-import 'package:sliate/screens/home/Notes_page.dart';
+import 'package:sliate/screens/Test/test.dart';
 import 'package:sliate/screens/log/login_page.dart';
-import 'package:sliate/screens/widgets/demo.dart';
+import 'package:sliate/screens/widgets/Events_page.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
@@ -82,7 +80,7 @@ class drawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Notes_Page()),
+                MaterialPageRoute(builder: (context) => const Test()),
               );
             },
           ),
@@ -107,7 +105,7 @@ class drawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const StaggeredGridPage(),
+                    builder: (context) => const Events_page(),
                   ),
                 );
               }),

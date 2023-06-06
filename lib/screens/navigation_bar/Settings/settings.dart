@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iconly/iconly.dart';
+import 'package:sliate/event%20_test.dart';
 import 'package:sliate/screens/widgets/json.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -14,7 +16,28 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _isDarkModeEnabled = false;
-  bool _isNotificationEnabled = true;
+  final bool _isNotificationEnabled = true;
+  String? text;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchText();
+  }
+
+  Future<void> fetchText() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final collection = FirebaseFirestore.instance.collection('users');
+      final document = collection.doc(user.uid);
+      final snapshot = await document.get();
+      if (snapshot.exists) {
+        setState(() {
+          text = snapshot.data()!['name'];
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +48,7 @@ class _SettingsPageState extends State<SettingsPage> {
           padding: const EdgeInsets.only(left: 10.0, right: 10),
           child: ListView(
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'Settings',
                   style: TextStyle(
@@ -34,30 +57,30 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: Colors.black),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
-              const ListTile(
-                leading: CircleAvatar(
+              ListTile(
+                leading: const CircleAvatar(
                   radius: 35,
                   backgroundImage: AssetImage(
                     'assets/images/logo/manas.jpg',
                   ),
                 ),
                 title: Text(
-                  'Manas Afrid',
-                  style: TextStyle(
+                  text!,
+                  style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                subtitle: Text('SAM/IT/2020/F/0024'),
-                trailing: Icon(
+                subtitle: const Text('SAM/IT/2020/F/0024'),
+                trailing: const Icon(
                   Icons.arrow_forward_ios_sharp,
                   size: 18,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -103,7 +126,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     ListTile(
                       leading: const Icon(Icons.person_add),
                       title: const Text('Invite a Friend'),
-                      onTap: () {},
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => ContainerPage()),
+                        // );
+                      },
                       trailing: const Icon(
                         Icons.arrow_forward_ios_sharp,
                         size: 18,

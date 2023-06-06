@@ -2,16 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
-import 'package:sliate/screens/Notes/course-details.dart';
+import 'package:sliate/screens/Test/test_2.dart';
 
-class Notes_Page extends StatefulWidget {
-  const Notes_Page({Key? key}) : super(key: key);
+class Test extends StatefulWidget {
+  const Test({Key? key}) : super(key: key);
 
   @override
-  State<Notes_Page> createState() => _Notes_PageState();
+  State<Test> createState() => _TestState();
 }
 
-class _Notes_PageState extends State<Notes_Page> {
+class _TestState extends State<Test> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];
 
@@ -127,8 +127,7 @@ class _Notes_PageState extends State<Notes_Page> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const CourseDetails()),
+                      MaterialPageRoute(builder: (context) => const test_2()),
                     );
                   },
                   child: Text(

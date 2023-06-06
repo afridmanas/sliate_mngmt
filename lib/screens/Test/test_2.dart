@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
 
-class CourseDetails extends StatefulWidget {
-  const CourseDetails({Key? key}) : super(key: key);
+class test_2 extends StatefulWidget {
+  const test_2({Key? key}) : super(key: key);
 
   @override
-  _CourseDetailsState createState() => _CourseDetailsState();
+  _test_2State createState() => _test_2State();
 }
 
-class _CourseDetailsState extends State<CourseDetails> {
+class _test_2State extends State<test_2> {
   final TextEditingController _textEditingController = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<DocumentSnapshot> Subjects = [];

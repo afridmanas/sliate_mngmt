@@ -22,88 +22,15 @@ class _newsfeedState extends State<newsfeed> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Card(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        left: 18, right: 18, top: 10, bottom: 10),
-                    child: Text(
-                      'All',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        left: 18, right: 18, top: 10, bottom: 10),
-                    child: Text(
-                      'HNDIT',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        left: 18, right: 18, top: 10, bottom: 10),
-                    child: Text(
-                      'HNDE',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                Card(
-                  color: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.only(
-                        left: 18, right: 18, top: 10, bottom: 10),
-                    child: Text(
-                      'HNDA',
-                      style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
-            ),
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 10),
               child: SizedBox(
                 child: Text(
                   'Latest News',
                   style: GoogleFonts.mavenPro(
                     textStyle: const TextStyle(
                       color: Colors.black,
-                      fontSize: 30,
+                      fontSize: 35,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/screens/log/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
 
 // ignore: camel_case_types
 class sign_up extends StatefulWidget {
@@ -23,33 +24,35 @@ class _sign_upState extends State<sign_up> {
   final _phoneController = TextEditingController();
   final _fullNameController = TextEditingController();
 
-  // void _submitForm() async {
-  //   if (_formKey.currentState!.validate()) {
-  //     final email = _emailController.text;
-  //     final password = _passwordController.text;
-  //     final phone = "+94${_phoneController.text}";
+  void _submitForm() async {
+    if (_formKey.currentState!.validate()) {
+      final email = _emailController.text;
+      final password = _passwordController.text;
+      final reg_no = _phoneController.text;
 
-  //     try {
-  //       final userCredential =
-  //           await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //         email: email,
-  //         password: password,
-  //       );
+      try {
+        final userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-  //       await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(userCredential.user!.uid)
-  //           .set({
-  //         'email': email,
-  //         'phone': phone,
-  //       });
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .set({
+          'email': email,
+          'reg_no': reg_no,
+        });
 
-  //       // Navigate to the home screen
-  //     } catch (e) {
-  //       // Handle the error
-  //     }
-  //   }
-  // }
+        // Navigate to the home screen
+      } catch (e) {
+        SnackBar(
+          content: Text(e.toString()),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +186,7 @@ class _sign_upState extends State<sign_up> {
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Phone Number is required';
+                              return 'Student Registration Number is required!';
                             }
                             return null;
                           },
@@ -192,7 +195,7 @@ class _sign_upState extends State<sign_up> {
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
-                            labelText: 'Mobile Number',
+                            labelText: 'Registration Number',
                             labelStyle: TextStyle(
                                 color: Colors.grey,
                                 fontWeight: FontWeight.w600,
@@ -220,17 +223,27 @@ class _sign_upState extends State<sign_up> {
                                     'name': _fullNameController.text,
                                     'email': _emailController.text,
                                     'password': _passwordController.text,
-                                    'phone': "+94${_phoneController.text}",
+                                    'reg_no': _phoneController.text,
                                   },
                                 );
-                                Navigator.pop(context);
+                                SnackBar(
+                                  content: Text('Account Created Successfully'),
+                                );
+
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) => const dashboard()),
+                                  ),
+                                );
                               } on FirebaseAuthException catch (e) {
                                 if (e.code == 'weak-password') {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: const Text('Error'),
-                                      content: const Text('The password is too weak'),
+                                      content: const Text(
+                                          'The password is too weak'),
                                       actions: [
                                         ElevatedButton(
                                           child: const Text('OK'),
@@ -245,8 +258,8 @@ class _sign_upState extends State<sign_up> {
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: const Text('Error'),
-                                      content:
-                                          const Text('The email is already in use'),
+                                      content: const Text(
+                                          'The email is already in use'),
                                       actions: [
                                         ElevatedButton(
                                           child: const Text('OK'),
@@ -258,7 +271,9 @@ class _sign_upState extends State<sign_up> {
                                   );
                                 }
                               } catch (e) {
-                                print(e);
+                                SnackBar(
+                                  content: Text(e.toString()),
+                                );
                               }
                             }
                           },

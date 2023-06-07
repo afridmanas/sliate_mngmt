@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliate/screens/log/login_page.dart';
-import 'package:sliate/screens/navigation_bar/Home/home_page.dart';
+import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
 
-// ignore: camel_case_types
 class splash_screen extends StatefulWidget {
   const splash_screen({super.key});
 
@@ -11,28 +11,27 @@ class splash_screen extends StatefulWidget {
   State<splash_screen> createState() => _splash_screenState();
 }
 
-// ignore: camel_case_types
 class _splash_screenState extends State<splash_screen> {
   @override
   void initState() {
     super.initState();
-    startTimer();
-  }
 
-  // Function to navigate to the home screen after some delay
-  startTimer() async {
-    var duration = const Duration(seconds: 5);
-    return Timer(duration, route);
-  }
+    Future.delayed(Duration(seconds: 5), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString("USERID");
 
-  // Function to route to the home screen
-  route() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => dashboard()
-          //sign_in()
-          ),
-    );
+      if (token != null) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => dashboard()),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => sign_in()),
+        );
+      }
+    });
   }
 
   @override
@@ -48,3 +47,6 @@ class _splash_screenState extends State<splash_screen> {
     );
   }
 }
+
+
+

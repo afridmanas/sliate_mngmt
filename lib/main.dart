@@ -36,9 +36,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      home: Scaffold(
-        body: splash_screen(),
-      ),
+      home: const Scaffold(body: splash_screen()),
     );
   }
 }

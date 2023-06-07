@@ -42,51 +42,19 @@ class _Events_pageState extends State<Events_page>
             color: Colors.white,
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Events',
-                        style: GoogleFonts.mavenPro(
-                          textStyle: const TextStyle(
-                              fontSize: 45,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: .5),
-                        ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 8, right: 8),
+                    child: Text(
+                      'Events',
+                      style: GoogleFonts.mavenPro(
+                        textStyle: const TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: .5),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          color: Colors.white,
-                          height: 35,
-                          child: Center(
-                            child: TextFormField(
-                              onChanged: (value) => {},
-                              // searchNotes(value),
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                hintText: 'Search Here',
-                                prefixIcon: const Icon(
-                                  Icons.search_sharp,
-                                  color: title_color,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  borderSide: BorderSide.none,
-                                ),
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),

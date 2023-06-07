@@ -1,74 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class newsfeed_view extends StatefulWidget {
-  const newsfeed_view({super.key});
+class newsfeed_view extends StatelessWidget {
+  final String description;
+  final String urlToImage;
 
-  @override
-  State<newsfeed_view> createState() => _newsfeed_viewState();
-}
-
-class _newsfeed_viewState extends State<newsfeed_view> {
-  String paragraph = '';
-  TextEditingController _paragraphController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    fetchParagraph();
-  }
-
-  Future<void> fetchParagraph() async {
-    try {
-      // Get a reference to the Firestore collection
-      CollectionReference collection =
-          FirebaseFirestore.instance.collection('paragraphs');
-
-      // Get the document snapshot containing the paragraph
-      DocumentSnapshot snapshot = await collection
-          .doc('documentId')
-          .get(); // Replace 'documentId' with the actual document ID
-
-      // Get the paragraph data from the snapshot
-      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
-
-      if (data != null) {
-        setState(() {
-          paragraph = data['text'];
-        });
-      }
-    } catch (error) {
-      print('Failed to fetch paragraph. Error: $error');
-    }
-  }
-
-  Future<void> saveParagraph() async {
-    try {
-      // Get a reference to the Firestore collection
-      CollectionReference collection =
-          FirebaseFirestore.instance.collection('paragraphs');
-
-      // Save the paragraph to Firestore
-      await collection.doc('documentId').set({
-        'text': _paragraphController.text
-      }); // Replace 'documentId' with the actual document ID
-
-      setState(() {
-        paragraph = _paragraphController.text;
-      });
-
-      // Clear the text field
-      _paragraphController.clear();
-    } catch (error) {
-      print('Failed to save paragraph. Error: $error');
-    }
-  }
-
-  @override
-  void dispose() {
-    _paragraphController.dispose();
-    super.dispose();
-  }
+  const newsfeed_view(
+      {super.key, required this.description, required this.urlToImage});
 
   @override
   Widget build(BuildContext context) {
@@ -132,16 +70,16 @@ class _newsfeed_viewState extends State<newsfeed_view> {
                   ),
                 ),
               ),
-              Container(
-                height: 300,
+              SizedBox(
+                height: 200,
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      'assets/images/logo/manas.jpg',
-                      fit: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      urlToImage,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
@@ -149,12 +87,12 @@ class _newsfeed_viewState extends State<newsfeed_view> {
               const SizedBox(
                 height: 10,
               ),
-              Container(
+              SizedBox(
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    paragraph,
+                    description,
                     textAlign: TextAlign.justify,
                     style: const TextStyle(fontSize: 16.0),
                   ),

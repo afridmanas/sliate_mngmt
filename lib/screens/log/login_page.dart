@@ -6,6 +6,7 @@ import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
 import 'package:sliate/screens/log/forget_pass.dart';
 import 'package:sliate/screens/log/signup_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sliate/screens/navigation_bar/Home/home_page.dart';
 
 // ignore: camel_case_types
 class sign_in extends StatefulWidget {
@@ -51,11 +52,10 @@ class _sign_inState extends State<sign_in> {
   }
 
   void navigateToHome() {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //       builder: (BuildContext context) => const home_design1()),
-    // );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => dashboard()),
+    );
   }
 
   @override
@@ -144,7 +144,7 @@ class _sign_inState extends State<sign_in> {
                                     labelStyle: TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 14.0,
+                                      fontSize: 12.0,
                                     ),
                                   ),
                                 ),
@@ -168,7 +168,7 @@ class _sign_inState extends State<sign_in> {
                                     labelStyle: TextStyle(
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w600,
-                                        fontSize: 14.0),
+                                        fontSize: 12.0),
                                   ),
                                 ),
                                 const SizedBox(
@@ -176,6 +176,8 @@ class _sign_inState extends State<sign_in> {
                                 ),
                                 ElevatedButton(
                                   onPressed: () async {
+                                    final user =
+                                        FirebaseAuth.instance.currentUser;
                                     if (_formKey.currentState!.validate()) {
                                       try {
                                         await FirebaseAuth.instance
@@ -183,14 +185,17 @@ class _sign_inState extends State<sign_in> {
                                           email: _emailController.text,
                                           password: _passwordController.text,
                                         );
-
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: ((context) =>
-                                        //         const home_design1()),
-                                        //   ),
-                                        // );
+                                        SharedPreferences prefs =
+                                            await SharedPreferences
+                                                .getInstance();
+                                        prefs.setString("USERID", user!.uid);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: ((context) =>
+                                                const dashboard()),
+                                          ),
+                                        );
                                         _emailController.clear();
                                         _passwordController.clear();
                                       } on FirebaseAuthException catch (e) {

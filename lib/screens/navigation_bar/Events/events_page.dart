@@ -1,8 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:sliate/screens/navigation_bar/Events/event_tab_bar.dart';
 
 class Events_page extends StatefulWidget {
   const Events_page({Key? key});
@@ -14,6 +16,7 @@ class Events_page extends StatefulWidget {
 class _Events_pageState extends State<Events_page>
     with SingleTickerProviderStateMixin {
   late TabController _tabcontroller;
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +26,7 @@ class _Events_pageState extends State<Events_page>
   @override
   void dispose() {
     _tabcontroller.dispose();
+
     super.dispose();
   }
 
@@ -30,21 +34,6 @@ class _Events_pageState extends State<Events_page>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   elevation: 0,
-      //   iconTheme: const IconThemeData(
-      //     color: Colors.black,
-      //   ),
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(Icons.home),
-      //       onPressed: () {
-      //         // Add your action code here
-      //       },
-      //     ),
-      //   ],
-      // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -103,7 +92,7 @@ class _Events_pageState extends State<Events_page>
               ),
             ),
           ),
-          SingleChildScrollView(
+          Expanded(
             child: Container(
               color: Colors.white,
               padding: EdgeInsets.only(left: 10, right: 10),
@@ -120,7 +109,7 @@ class _Events_pageState extends State<Events_page>
                       labelColor: Colors.black,
                       unselectedLabelColor: Colors.grey,
                       controller: _tabcontroller,
-                      tabs: [
+                      tabs: const [
                         Tab(
                           text: 'Latest',
                         ),
@@ -142,283 +131,11 @@ class _Events_pageState extends State<Events_page>
                   Expanded(
                     child: TabBarView(
                       controller: _tabcontroller,
-                      children: [
-                        MasonryGridView.count(
-                          padding: const EdgeInsets.all(8),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 7.0,
-                          crossAxisSpacing: 7.0,
-                          itemCount: 30,
-                          itemBuilder: (BuildContext context, int index) {
-                            final isEvenIndex = index.isEven;
-
-                            final containerHeight = isEvenIndex ? 200.0 : 300.0;
-
-                            final descriptionHeight = isEvenIndex ? 70.0 : 90.0;
-
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 1.0,
-                                      child: FractionallySizedBox(
-                                        heightFactor:
-                                            containerHeight / containerHeight,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                'assets/images/logo/manas.jpg',
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: descriptionHeight,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: const Text(
-                                          'Short Description',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        MasonryGridView.count(
-                          padding: const EdgeInsets.all(8),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 7.0,
-                          crossAxisSpacing: 7.0,
-                          itemCount: 30,
-                          itemBuilder: (BuildContext context, int index) {
-                            final isEvenIndex = index.isEven;
-
-                            final containerHeight = isEvenIndex ? 200.0 : 300.0;
-
-                            final descriptionHeight = isEvenIndex ? 70.0 : 90.0;
-
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 1.0,
-                                      child: FractionallySizedBox(
-                                        heightFactor:
-                                            containerHeight / containerHeight,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                'assets/images/logo/manas.jpg',
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: descriptionHeight,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: const Text(
-                                          'Short Description',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        MasonryGridView.count(
-                          padding: const EdgeInsets.all(8),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 7.0,
-                          crossAxisSpacing: 7.0,
-                          itemCount: 30,
-                          itemBuilder: (BuildContext context, int index) {
-                            final isEvenIndex = index.isEven;
-
-                            final containerHeight = isEvenIndex ? 200.0 : 300.0;
-
-                            final descriptionHeight = isEvenIndex ? 70.0 : 90.0;
-
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 1.0,
-                                      child: FractionallySizedBox(
-                                        heightFactor:
-                                            containerHeight / containerHeight,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                'assets/images/logo/manas.jpg',
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: descriptionHeight,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: const Text(
-                                          'Short Description',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        MasonryGridView.count(
-                          padding: const EdgeInsets.all(8),
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 7.0,
-                          crossAxisSpacing: 7.0,
-                          itemCount: 30,
-                          itemBuilder: (BuildContext context, int index) {
-                            final isEvenIndex = index.isEven;
-
-                            final containerHeight = isEvenIndex ? 200.0 : 300.0;
-
-                            final descriptionHeight = isEvenIndex ? 70.0 : 90.0;
-
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 1.0,
-                                      child: FractionallySizedBox(
-                                        heightFactor:
-                                            containerHeight / containerHeight,
-                                        child: Container(
-                                          decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                'assets/images/logo/manas.jpg',
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: descriptionHeight,
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15),
-                                          ),
-                                        ),
-                                        padding: const EdgeInsets.all(10),
-                                        child: const Text(
-                                          'Short Description',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+                      children: const [
+                        Event_tab_bar(),
+                        Event_tab_bar(),
+                        Event_tab_bar(),
+                        Event_tab_bar(),
                       ],
                     ),
                   )

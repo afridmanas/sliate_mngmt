@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sliate/screens/categories/newsfeed_view.dart';
+import 'package:sliate/screens/navigation_bar/NewsFeed/newsfeed_view.dart';
 
 class newsfeed extends StatefulWidget {
   const newsfeed({Key? key}) : super(key: key);
@@ -23,16 +23,15 @@ class _newsfeedState extends State<newsfeed> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 12.0, right: 12, bottom: 10),
+              padding: const EdgeInsets.only(left: 08.0, right: 8, bottom: 10),
               child: SizedBox(
                 child: Text(
-                  'Latest News',
+                  'News Feed',
                   style: GoogleFonts.mavenPro(
                     textStyle: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: .5),
                   ),
                 ),
               ),
@@ -103,7 +102,7 @@ class _newsfeedState extends State<newsfeed> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      height: 200,
+                                      height: 150,
                                       width: double.infinity,
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -117,14 +116,17 @@ class _newsfeedState extends State<newsfeed> {
                                       padding: const EdgeInsets.all(12.0),
                                       child: Center(
                                         child: Text(
-                                          'The Academic week schedule moved to another two weeks'
+                                          'The Academic week schedule moved to another two weeks manas afdsferfgf ajhdgdd ahgdhfjh hahghg'
                                               .split('/')
                                               .last
                                               .trimLeft(),
                                           style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
                                         ),
                                       ),
                                     ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sliate/color.dart';
 import 'package:sliate/screens/log/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
@@ -21,14 +22,14 @@ class _sign_upState extends State<sign_up> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   //final _confirmPasswordController = TextEditingController();
-  final _phoneController = TextEditingController();
+  final _regnumberController = TextEditingController();
   final _fullNameController = TextEditingController();
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text;
       final password = _passwordController.text;
-      final reg_no = _phoneController.text;
+      final reg_no = _regnumberController.text;
 
       try {
         final userCredential =
@@ -60,7 +61,7 @@ class _sign_upState extends State<sign_up> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: bg_clr,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -93,8 +94,8 @@ class _sign_upState extends State<sign_up> {
                       child: Text(
                         'SLIATE',
                         style: GoogleFonts.mavenPro(
-                          textStyle: const TextStyle(
-                            color: Colors.black,
+                          textStyle: TextStyle(
+                            color: text_clr,
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
                           ),
@@ -117,16 +118,16 @@ class _sign_upState extends State<sign_up> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(20.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(10.0),
                               ),
                             ),
-                            labelText: 'Full Name',
+                            labelText: 'Your Name',
                             labelStyle: TextStyle(
-                                color: Colors.grey,
+                                color: widg_clr,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14.0),
                           ),
@@ -142,14 +143,14 @@ class _sign_upState extends State<sign_up> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(15.0),
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             labelText: 'Email Address',
                             labelStyle: TextStyle(
-                                color: Colors.grey,
+                                color: widg_clr,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14.0),
                           ),
@@ -166,14 +167,14 @@ class _sign_upState extends State<sign_up> {
                             return null;
                           },
                           obscureText: true,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(20.0),
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             labelText: 'Password',
                             labelStyle: TextStyle(
-                                color: Colors.grey,
+                                color: widg_clr,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14.0),
                           ),
@@ -182,7 +183,7 @@ class _sign_upState extends State<sign_up> {
                           height: 8,
                         ),
                         TextFormField(
-                          controller: _phoneController,
+                          controller: _regnumberController,
                           keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -190,14 +191,14 @@ class _sign_upState extends State<sign_up> {
                             }
                             return null;
                           },
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(15.0),
                             border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0))),
                             labelText: 'Registration Number',
                             labelStyle: TextStyle(
-                                color: Colors.grey,
+                                color: widg_clr,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14.0),
                           ),
@@ -223,7 +224,7 @@ class _sign_upState extends State<sign_up> {
                                     'name': _fullNameController.text,
                                     'email': _emailController.text,
                                     'password': _passwordController.text,
-                                    'reg_no': _phoneController.text,
+                                    'reg_no': _regnumberController.text,
                                   },
                                 );
                                 SnackBar(

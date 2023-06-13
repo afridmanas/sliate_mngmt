@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
@@ -12,41 +13,29 @@ class notes_patpaper extends StatefulWidget {
 }
 
 class _notes_patpaperState extends State<notes_patpaper> {
-// List<String> pdfUrls = [];
+  List<Notes_List> lms_notes_list = [];
+  List<Notes_List> past_paper_list = [];
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     loadPdfUrls();
-//   }
+  Future<void> Notes() async {
+    final storage = FirebaseStorage.instance;
+    final ListResult result = await storage.ref().child('books').listAll();
+    final List<Notes_List> Notes = [];
 
-//   void loadPdfUrls() {
-//     // Replace 'your-firebase-storage-bucket' with your actual Firebase Storage bucket
-//     firebase_storage.FirebaseStorage storage =
-//         firebase_storage.FirebaseStorage.instance;
-//     firebase_storage.ListResult result = await storage
-//         .ref()
-//         .child('pdf')
-//         .listAll(); // Replace 'pdf' with the actual path to your PDF files in Firebase Storage
-//     List<String> urls = [];
-//     result.items.forEach((firebase_storage.Reference ref) {
-//       urls.add(ref.fullPath);
-//     });
-//     setState(() {
-//       pdfUrls = urls;
-//     });
-//   }
+    for (final ref in result.items) {
+      final url = await ref.getDownloadURL();
+      final metadata = await ref.getMetadata();
+      final book = Notes_List(
+        title: metadata.name ?? '',
+        year: metadata.customMetadata?['year'] ?? '',
+        imageUrl: url,
+      );
+      Notes.add(book);
+    }
 
-//   Future<void> downloadPdf(String url) async {
-//     firebase_storage.FirebaseStorage storage =
-//         firebase_storage.FirebaseStorage.instance;
-//     final Directory appDirectory = await getApplicationDocumentsDirectory();
-//     final String filePath = '${appDirectory.path}/${url.split('/').last}';
-//     await storage.ref(url).writeToFile(File(filePath));
-//     ScaffoldMessenger.of(context).showSnackBar(
-//       SnackBar(content: Text('PDF downloaded successfully')),
-//     );
-//   }
+    setState(() {
+      lms_notes_list = Notes;
+    });
+  }
 
   List<String> notesList = [
     'Note 1',
@@ -331,7 +320,7 @@ class _notes_patpaperState extends State<notes_patpaper> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: backround,
+                        color: bg_clr,
                       ),
                       child: Container(
                         margin: const EdgeInsets.only(left: 10, right: 10),
@@ -343,7 +332,7 @@ class _notes_patpaperState extends State<notes_patpaper> {
                               width: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: backround,
+                                color: bg_clr,
                                 image: const DecorationImage(
                                   image: AssetImage(
                                     'assets/images/logo/manas.jpg',
@@ -385,6 +374,18 @@ class _notes_patpaperState extends State<notes_patpaper> {
       ),
     );
   }
+}
+
+class Notes_List {
+  final String title;
+  final String year;
+  final String imageUrl;
+
+  Notes_List({
+    required this.title,
+    required this.year,
+    required this.imageUrl,
+  });
 }
 
 class SearchPage extends StatefulWidget {

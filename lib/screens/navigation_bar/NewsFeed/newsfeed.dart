@@ -101,20 +101,17 @@ class _newsfeedState extends State<newsfeed> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 100,
+                itemCount: 25,
                 itemBuilder: (BuildContext context, int index) {
-                  final article = _articles[index];
-                  final String timeAgo = formatTimeAgo(article.published);
-
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => newsfeed_view(
-                            description: article.description,
-                            urlToImage: article.urlToImage,
-                          ),
+                              // description: article.description,
+                              // urlToImage: article.urlToImage,
+                              ),
                         ),
                       );
                     },
@@ -146,7 +143,7 @@ class _newsfeedState extends State<newsfeed> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 subtitle: Text(
-                                  timeAgo,
+                                  '12 min ago',
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 15,
@@ -177,8 +174,8 @@ class _newsfeedState extends State<newsfeed> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Image.network(
-                                          article.urlToImage,
-                                          fit: BoxFit.cover,
+                                          'https://tamilguru.lk/wp-content/uploads/2023/05/SLIATE-HND-Courses-Application-Gazette-2022-2023-Intake.jpg',
+                                          fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
@@ -186,7 +183,7 @@ class _newsfeedState extends State<newsfeed> {
                                       padding: const EdgeInsets.all(12.0),
                                       child: Center(
                                         child: Text(
-                                          article.title
+                                          'Admission for SLIATE HND Courses 2023'
                                               .split('/')
                                               .last
                                               .trimLeft(),

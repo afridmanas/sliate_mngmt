@@ -40,9 +40,9 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: backround,
+      backgroundColor: bg_clr,
       appBar: AppBar(
-        backgroundColor: backround,
+        backgroundColor: bg_clr,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
@@ -96,7 +96,7 @@ class _TestState extends State<Test> {
               onChanged: (value) => _searchNotes(value),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: backround,
+                fillColor: bg_clr,
                 hintText: 'Search Here',
                 prefixIcon: const Icon(Icons.search_sharp),
                 border: OutlineInputBorder(

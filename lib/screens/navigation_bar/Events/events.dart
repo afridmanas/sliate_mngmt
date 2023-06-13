@@ -38,12 +38,12 @@ class _EventsState extends State<Events> with SingleTickerProviderStateMixin {
               child: Column(
                 children: [
                   Container(
-                    color: backround,
+                    color: bg_clr,
                     child: TabBar(
                       indicator:
-                          DotTabIndicator(color: Colors.black, radius: 4),
-                      labelColor: Colors.black,
-                      unselectedLabelColor: Colors.grey,
+                          DotTabIndicator(color: text_clr, radius: 4),
+                      labelColor: text_clr,
+                      unselectedLabelColor: widg_clr,
                       tabs: const [
                         Tab(text: 'Latest'),
                         Tab(text: 'HNDIT'),
@@ -148,7 +148,7 @@ class _ContainerListState extends State<ContainerList> {
               padding: const EdgeInsets.all(6.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  color: widget_clr1,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 width: 300,
@@ -165,18 +165,18 @@ class _ContainerListState extends State<ContainerList> {
                         children: [
                           Text(
                             'Bottom Text $index',
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 20,
-                              color: Colors.white,
+                              color: bg_clr,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 5),
                           Text(
                             'Today\'s Date: ${DateFormat.yMd().format(DateTime.now())}',
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 14,
-                              color: Colors.white,
+                              color: bg_clr,
                             ),
                           ),
                         ],
@@ -197,9 +197,9 @@ class _ContainerListState extends State<ContainerList> {
               child: SmoothPageIndicator(
                 controller: pageController,
                 count: 5, // Replace with your desired number of containers
-                effect: const WormEffect(
-                  dotColor: Colors.grey,
-                  activeDotColor: Colors.black,
+                effect:  WormEffect(
+                  dotColor: widg_clr,
+                  activeDotColor: text_clr,
                   dotHeight: 8,
                   dotWidth: 8,
                   spacing: 10,

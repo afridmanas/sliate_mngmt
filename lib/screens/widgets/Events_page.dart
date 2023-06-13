@@ -82,9 +82,9 @@ class _Events_pageState extends State<Events_page>
                                 filled: true,
                                 fillColor: Colors.grey[200],
                                 hintText: 'Search Here',
-                                prefixIcon: const Icon(
+                                prefixIcon:  Icon(
                                   Icons.search_sharp,
-                                  color: title_color,
+                                  color: text_clr,
                                 ),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15.0),

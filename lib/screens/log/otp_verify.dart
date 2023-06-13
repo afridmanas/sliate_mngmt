@@ -1,83 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliate/color.dart';
-import 'package:email_otp/email_otp.dart';
-import 'package:sliate/screens/log/otp_verify.dart';
+import 'package:sliate/screens/log/change_pass.dart';
 
-class ForgetPassword extends StatefulWidget {
-  const ForgetPassword({Key? key}) : super(key: key);
+class OTPVerify extends StatelessWidget {
+  final TextEditingController otpController;
+  final Function(BuildContext) verifyOTP;
 
-  @override
-  _ForgetPasswordState createState() => _ForgetPasswordState();
-}
-
-class _ForgetPasswordState extends State<ForgetPassword> {
-  final _emailController = TextEditingController();
-  final TextEditingController otpController = TextEditingController();
-  EmailOTP myAuth = EmailOTP();
-
-  void sendOTP(BuildContext context) async {
-    myAuth.setConfig(
-        appEmail: "afridmanas@gmail.com",
-        appName: "SLIATE",
-        userEmail: _emailController.text,
-        otpLength: 6,
-        otpType: OTPType.digitsOnly);
-    if (await myAuth.sendOTP() == true) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OTPVerify(
-            otpController: otpController,
-            verifyOTP: (BuildContext) {
-              myAuth.sendOTP();
-            },
-          ),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("OTP has been sent"),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Oops, OTP send failed"),
-        ),
-      );
-    }
-  }
-
-  void verifyOTP(BuildContext context) async {
-    if (await myAuth.verifyOTP(otp: otpController.text) == true) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              OTPVerify(otpController: otpController, verifyOTP: verifyOTP),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("OTP is verified"),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Invalid OTP"),
-        ),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    super.dispose();
-  }
+  OTPVerify({required this.otpController, required this.verifyOTP});
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +26,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           Container(
             padding: const EdgeInsets.only(left: 16.0, right: 16),
             child: Text(
-              'Forgot password?',
+              'OTP Verification',
               style: GoogleFonts.mavenPro(
                 textStyle: const TextStyle(
                     color: Colors.black,
@@ -128,13 +58,14 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     height: 30,
                   ),
                   TextFormField(
-                    controller: _emailController,
+                    controller: otpController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.all(15.0),
                       border: const OutlineInputBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
-                      labelText: 'Email Address',
+                      labelText: 'OTP Code',
                       labelStyle: TextStyle(
                           color: widg_clr,
                           fontWeight: FontWeight.w600,
@@ -147,7 +78,12 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        sendOTP(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePasswordPage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(400, 50),
@@ -161,7 +97,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       child: Text(
-                        'Send OTP',
+                        'Verify OTP',
                         style: TextStyle(color: bg_clr),
                       ),
                     ),

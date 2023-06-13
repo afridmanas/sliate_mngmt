@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconly/iconly.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:sliate/screens/details/update_onboard.dart';
+import 'package:sliate/screens/widgets/edit_profile.dart';
 import 'package:sliate/screens/widgets/json.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -48,10 +50,11 @@ class _SettingsPageState extends State<SettingsPage> {
           Container(
             padding: const EdgeInsets.only(left: 16.0, right: 16),
             child: Text(
-              'Settings',
+              'Profile',
               style: GoogleFonts.mavenPro(
                 textStyle: const TextStyle(
-                    fontSize: 45,
+                    color: Colors.black,
+                    fontSize: 35,
                     fontWeight: FontWeight.bold,
                     letterSpacing: .5),
               ),
@@ -62,139 +65,163 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.only(left: 16.0, right: 16),
+              // padding: const EdgeInsets.only(left: 16.0, right: 16),
               child: ListView(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          color: Colors.blue,
-                          width: 3.0,
+                    child: const ListTile(
+                      leading: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: AssetImage(
+                          'assets/images/logo/manas.jpg',
                         ),
                       ),
-                    ),
-                    child: const Card(
-                      child: ListTile(
-                        leading: CircleAvatar(
-                          radius: 35,
-                          backgroundImage: AssetImage(
-                            'assets/images/logo/manas.jpg',
-                          ),
+                      title: Text(
+                        'Manas Afrid',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
-                        title: Text(
-                          'Manas Afrid',
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        subtitle: Text('SAM/IT/2020/F/0024'),
                       ),
+                      subtitle: Text('SAM/IT/2020/F/0024'),
                     ),
                   ),
                   const SizedBox(
                     height: 20,
-                  ),
-                  Text(
-                    'General',
-                    style: GoogleFonts.mavenPro(
-                      textStyle: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: .5),
-                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(
-                          color: Colors.blue,
-                          width: 3.0,
-                        ),
-                      ),
-                    ),
-                    child: Card(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
-                            child: Column(
-                              children: [
-                                const ListTile(
-                                  leading: Icon(
-                                    LineIcons.user,
-                                  ),
-                                  title: Text('Account Information'),
-                                  trailing: Icon(
-                                    LineIcons.arrowCircleDown,
-                                    size: 25,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Text(
+                                  'General',
+                                  style: GoogleFonts.mavenPro(
+                                    textStyle: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: .5),
                                   ),
                                 ),
-                                const Divider(),
-                                ListTile(
-                                  leading: const Icon(
-                                    LineIcons.moon,
-                                  ),
-                                  title: const Text('Dark Mode '),
-                                  trailing: Switch(
-                                    activeTrackColor: Colors.blue,
-                                    value: _isDarkModeEnabled,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _isDarkModeEnabled = value;
-                                      });
-                                    },
-                                  ),
+                              ),
+                              ListTile(
+                                leading: const Icon(
+                                  LineIcons.user,
+                                  color: Colors.blue,
                                 ),
-                                const Divider(),
-                                ListTile(
-                                  leading: const Icon(
-                                    LineIcons.bell,
+                                title: const Text('Account Preference'),
+                                trailing: IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16,
                                   ),
-                                  title: const Text('Notification'),
-                                  // onTap: () {
-                                  //   // Navigator.push(
-                                  //   //   context,
-                                  //   //   MaterialPageRoute(
-                                  //   //       builder: (context) => ContainerPage()),
-                                  //   // );
-                                  // },
-                                  trailing: Switch(
-                                    activeTrackColor: Colors.blue,
-                                    value: _isNotificationEnabled,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _isNotificationEnabled = value;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                const Divider(),
-                                const ListTile(
-                                  leading: Icon(
-                                    LineIcons.facebookMessenger,
-                                  ),
-                                  title: Text('Send Feedback'),
-                                ),
-                                const Divider(),
-                                ListTile(
-                                  leading: const Icon(
-                                    LineIcons.alternateSignOut,
-                                  ),
-                                  title: const Text('Sign Out'),
-                                  onTap: () async {
-                                    await FirebaseAuth.instance.signOut();
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: ((context) => UserDetailsPage()),
+                                      ),
+                                    );
                                   },
-                                )
-                              ],
-                            ),
+                                ),
+                              ),
+                              ListTile(
+                                leading: const Icon(
+                                  LineIcons.moon,
+                                  color: Colors.blue,
+                                ),
+                                title: const Text('Dark Mode '),
+                                trailing: Switch(
+                                  activeTrackColor: Colors.blue,
+                                  value: _isDarkModeEnabled,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isDarkModeEnabled = value;
+                                    });
+                                  },
+                                ),
+                              ),
+                              ListTile(
+                                leading: const Icon(
+                                  LineIcons.bell,
+                                  color: Colors.blue,
+                                ),
+                                title: const Text('Notification'),
+                                trailing: Switch(
+                                  activeTrackColor: Colors.blue,
+                                  value: _isNotificationEnabled,
+                                  onChanged: (value) {
+                                    setState(
+                                      () {
+                                        _isNotificationEnabled = value;
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Text(
+                                  'Other',
+                                  style: GoogleFonts.mavenPro(
+                                    textStyle: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: .5),
+                                  ),
+                                ),
+                              ),
+                              const ListTile(
+                                leading: Icon(
+                                  LineIcons.helpingHands,
+                                  color: Colors.blue,
+                                ),
+                                title: Text('FAQ'),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                ),
+                              ),
+                              const ListTile(
+                                leading: Icon(
+                                  LineIcons.telegram,
+                                  color: Colors.blue,
+                                ),
+                                title: Text('Help & Support'),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                ),
+                              ),
+                              ListTile(
+                                leading: const Icon(
+                                  LineIcons.alternateSignOut,
+                                  color: Colors.blue,
+                                ),
+                                title: const Text('Sign Out'),
+                                onTap: () async {
+                                  await FirebaseAuth.instance.signOut();
+                                },
+                              )
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

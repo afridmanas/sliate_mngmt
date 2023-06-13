@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sliate/screens/error_page.dart';
 import 'package:sliate/screens/start/splash_screen.dart';
 import 'color.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseFirestore.instance.settings = const Settings(
-    persistenceEnabled: true,
-  );
+  ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+    return ErrorPage(
+      errorMessage: errorDetails.exceptionAsString(),
+    );
+  };
 
   runApp(
     const MyApp(),
   );
 
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: backround,
-      systemNavigationBarColor: title_color,
+    SystemUiOverlayStyle(
+      statusBarColor: bg_clr,
+      systemNavigationBarColor: widg_clr,
     ),
   );
 }
@@ -30,12 +33,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = GoogleFonts.mavenProTextTheme(
+      Theme.of(context).textTheme,
+    );
+
+    final ThemeData theme = ThemeData(
+      textTheme: textTheme,
+      primarySwatch: Colors.grey,
+    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SLIATE',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      theme: theme,
       home: const Scaffold(body: splash_screen()),
     );
   }

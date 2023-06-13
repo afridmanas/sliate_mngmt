@@ -1,33 +1,16 @@
-import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:iconly/iconly.dart';
 import 'package:line_icons/line_icons.dart';
-
 import 'package:sliate/color.dart';
-import 'package:sliate/reuse.dart';
-import 'package:sliate/screens/navigation_bar/NewsFeed/newsfeed.dart';
-
-import 'package:sliate/screens/navigation_bar/Events/events.dart';
-import 'package:sliate/screens/navigation_bar/Settings/settings.dart';
-
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:sliate/screens/quick%20widgets/download_forms.dart';
 import 'package:sliate/screens/quick%20widgets/lectures.dart';
 import 'package:sliate/screens/quick%20widgets/library.dart';
 import 'package:sliate/screens/quick%20widgets/results.dart';
 import 'package:sliate/screens/quick%20widgets/website.dart';
-
-import '../Events/events_page.dart';
-
-// ignore: camel_case_types
-
-// ignore: camel_case_types
 class Home_page extends StatefulWidget {
   const Home_page({
     super.key,
@@ -89,8 +72,8 @@ class _Home_pageState extends State<Home_page> {
                 Text(
                   'Lets Explore SLIATE',
                   style: GoogleFonts.mavenPro(
-                    textStyle: const TextStyle(
-                      color: text_color,
+                    textStyle:  TextStyle(
+                      color: text_clr,
                       fontWeight: FontWeight.w500,
                       fontSize: 25,
                     ),
@@ -105,6 +88,7 @@ class _Home_pageState extends State<Home_page> {
           Padding(
             padding: const EdgeInsets.only(left: 12, right: 12),
             child: Container(
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 color: Colors.white,
@@ -117,59 +101,58 @@ class _Home_pageState extends State<Home_page> {
                   ),
                 ],
               ),
-              child: Card(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 10, top: 10, bottom: 10),
-                      child: CircularPercentIndicator(
-                        radius: 65.0,
-                        restartAnimation: true,
-                        lineWidth: 15.0,
-                        animation: true,
-                        percent: progress,
-                        center: Text(
-                          '${textint.toStringAsPrecision(2)}%',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 10, bottom: 10),
+                    child: CircularPercentIndicator(
+                      radius: 65.0,
+                      restartAnimation: true,
+                      lineWidth: 12.0,
+                      animation: true,
+                      startAngle: 270,
+                      percent: .5,
+                      center: Text(
+                        '${textint.toStringAsPrecision(2)}%',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20.0),
+                      ),
+                      circularStrokeCap: CircularStrokeCap.round,
+                      progressColor: Colors.blue,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Academic Progress',
+                          style: GoogleFonts.mavenPro(
+                            textStyle: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: Colors.blue,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 40),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Academic Progress',
-                            style: GoogleFonts.mavenPro(
-                              textStyle: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Completed Weeks: 11'),
+                              Text('Balance Weeks: 4'),
+                            ],
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: const Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Completed Weeks: 11'),
-                                Text('Balance Weeks: 4'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -184,8 +167,8 @@ class _Home_pageState extends State<Home_page> {
                 Text(
                   'Quick Categories',
                   style: GoogleFonts.mavenPro(
-                    textStyle: const TextStyle(
-                      color: text_color,
+                    textStyle:  TextStyle(
+                      color: text_clr,
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
                     ),
@@ -219,10 +202,10 @@ class _Home_pageState extends State<Home_page> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Library()),
+                                  builder: (context) => const library_page()),
                             );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.book,
                             size: 30,
                           ),
@@ -232,10 +215,10 @@ class _Home_pageState extends State<Home_page> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DownloadForms()),
+                                  builder: (context) => const DownloadForms()),
                             );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.download,
                             size: 30,
                           ),
@@ -245,23 +228,23 @@ class _Home_pageState extends State<Home_page> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Results()),
+                                  builder: (context) => const Results()),
                             );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.database,
                             size: 30,
                           ),
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Website()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => const Website()),
+                            // );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.link,
                             size: 30,
                           ),
@@ -271,10 +254,10 @@ class _Home_pageState extends State<Home_page> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Lectures()),
+                                  builder: (context) => const Lectures()),
                             );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.userAstronaut,
                             size: 30,
                           ),
@@ -284,10 +267,10 @@ class _Home_pageState extends State<Home_page> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Lectures()),
+                                  builder: (context) => const Lectures()),
                             );
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             LineIcons.userAstronaut,
                             size: 30,
                           ),

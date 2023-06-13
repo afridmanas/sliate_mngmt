@@ -62,12 +62,12 @@ class _news_veiwState extends State<news_veiw> {
                 right: 30,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const DetailScreen()),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: ((context) => const DetailScreen()),
+                    //   ),
+                    // );
                   },
                   child: Container(
                     height: 250,

@@ -103,9 +103,9 @@ class _test_2State extends State<test_2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backround,
+      backgroundColor: bg_clr,
       appBar: AppBar(
-        backgroundColor: backround,
+        backgroundColor: bg_clr,
         elevation: 0,
         iconTheme: const IconThemeData(
           color: Colors.black, // Change the color of the back arrow here
@@ -131,7 +131,7 @@ class _test_2State extends State<test_2> {
                   onChanged: (value) => _searchNotes(value),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: backround,
+                    fillColor: bg_clr,
                     hintText: 'Search Here',
                     prefixIcon: const Icon(Icons.search_sharp),
                     border: OutlineInputBorder(

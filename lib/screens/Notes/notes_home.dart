@@ -296,7 +296,7 @@ class _Notes_homeState extends State<Notes_home>
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
-                                      color: backround,
+                                      color: bg_clr,
                                     ),
                                     child: Row(
                                       children: [
@@ -308,7 +308,7 @@ class _Notes_homeState extends State<Notes_home>
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(15),
-                                              color: backround,
+                                              color: bg_clr,
                                             ),
                                             child: CircleAvatar(
                                               backgroundImage: NetworkImage(
@@ -387,7 +387,7 @@ class _Notes_homeState extends State<Notes_home>
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
-                                      color: backround,
+                                      color: bg_clr,
                                     ),
                                     child: Row(
                                       children: [
@@ -399,7 +399,7 @@ class _Notes_homeState extends State<Notes_home>
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(15),
-                                              color: backround,
+                                              color: bg_clr,
                                             ),
                                             child: CircleAvatar(
                                               backgroundImage: NetworkImage(
@@ -478,7 +478,7 @@ class _Notes_homeState extends State<Notes_home>
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(15),
-                                      color: backround,
+                                      color: bg_clr,
                                     ),
                                     child: Row(
                                       children: [
@@ -490,7 +490,7 @@ class _Notes_homeState extends State<Notes_home>
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(15),
-                                              color: backround,
+                                              color: bg_clr,
                                             ),
                                             child: CircleAvatar(
                                               backgroundImage: NetworkImage(

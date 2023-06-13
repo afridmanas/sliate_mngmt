@@ -75,7 +75,7 @@ class _PassPaperListState extends State<PassPaperList> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      color: image_color,
+                      color: widget_clr1,
                     ),
                     child: ListTile(
                       title: Text(file.path.split('/').last.trimLeft()),
@@ -86,7 +86,7 @@ class _PassPaperListState extends State<PassPaperList> {
                         width: 50,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          color: image_color,
+                          color: widget_clr2,
                           image: const DecorationImage(
                             image: AssetImage(
                               'assets/images/logo/manas.jpg',

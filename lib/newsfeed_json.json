@@ -1,212 +1,214 @@
-[
-  {
-    "title": "Introduction to Programming",
-    "subtitle": "Learn the basics of programming",
-    "leading": "https://example.com/images/programming.jpg",
-    "date": "2023-06-01",
-    "department": "hndit"
-  },
-  {
-    "title": "Data Structures and Algorithms",
-    "subtitle": "Explore advanced data structures and algorithms",
-    "leading": "https://example.com/images/dsa.jpg",
-    "date": "2023-06-02",
-    "department": "hndit"
-  },
-  {
-    "title": "Web Development Fundamentals",
-    "subtitle": "Build dynamic web applications",
-    "leading": "https://example.com/images/webdev.jpg",
-    "date": "2023-06-03",
-    "department": "hnde"
-  },
-  {
-    "title": "Mobile App Development",
-    "subtitle": "Create cross-platform mobile apps",
-    "leading": "https://example.com/images/mobiledev.jpg",
-    "date": "2023-06-04",
-    "department": "hnda"
-  },
-  {
-    "title": "Database Design and Management",
-    "subtitle": "Learn about relational database systems",
-    "leading": "https://example.com/images/dbdesign.jpg",
-    "date": "2023-06-05",
-    "department": "hndit"
-  },
-  {
-    "title": "Software Engineering Principles",
-    "subtitle": "Develop high-quality software systems",
-    "leading": "https://example.com/images/softwareeng.jpg",
-    "date": "2023-06-06",
-    "department": "hndit"
-  },
-  {
-    "title": "Artificial Intelligence",
-    "subtitle": "Explore the world of AI and machine learning",
-    "leading": "https://example.com/images/ai.jpg",
-    "date": "2023-06-07",
-    "department": "hnde"
-  },
-  {
-    "title": "Network Security",
-    "subtitle": "Learn about securing computer networks",
-    "leading": "https://example.com/images/networksec.jpg",
-    "date": "2023-06-08",
-    "department": "hnde"
-  },
-  {
-    "title": "Computer Graphics",
-    "subtitle": "Create stunning visual effects and animations",
-    "leading": "https://example.com/images/computergraphics.jpg",
-    "date": "2023-06-09",
-    "department": "hnda"
-  },
-  {
-    "title": "Operating Systems",
-    "subtitle": "Understand the principles of operating systems",
-    "leading": "https://example.com/images/operatingsystems.jpg",
-    "date": "2023-06-10",
-    "department": "hndit"
-  },
-  {
-    "title": "Software Testing and Quality Assurance",
-    "subtitle": "Ensure software reliability and quality",
-    "leading": "https://example.com/images/softwaretesting.jpg",
-    "date": "2023-06-11",
-    "department": "hndit"
-  },
-  {
-    "title": "Internet of Things (IoT)",
-    "subtitle": "Explore the world of interconnected devices",
-    "leading": "https://example.com/images/iot.jpg",
-    "date": "2023-06-12",
-    "department": "hnde"
-  },
-  {
-    "title": "Cloud Computing",
-    "subtitle": "Deploy applications on the cloud",
-    "leading": "https://example.com/images/cloudcomputing.jpg",
-    "date": "2023-06-13",
-    "department": "hnde"
-  },
-  {
-    "title": "Computer Networks",
-    "subtitle": "Learn about network architecture and protocols",
-    "leading": "https://example.com/images/computernetworks.jpg",
-    "date": "2023-06-14",
-    "department": "hnda"
-  },
-  {
-    "title": "Human-Computer Interaction",
-    "subtitle": "Design user-friendly interfaces",
-    "leading": "https://example.com/images/hci.jpg",
-    "date": "2023-06-15",
-    "department": "hndit"
-  },
-  {
-    "title": "Cybersecurity",
-    "subtitle": "Protect computer systems from cyber threats",
-    "leading": "https://example.com/images/cybersecurity.jpg",
-    "date": "2023-06-16",
-    "department": "hnde"
-  },
-  {
-    "title": "Software Project Management",
-    "subtitle": "Plan and manage software projects",
-    "leading": "https://example.com/images/projectmanagement.jpg",
-    "date": "2023-06-17",
-    "department": "hndit"
-  },
-  {
-    "title": "Big Data Analytics",
-    "subtitle": "Extract insights from large datasets",
-    "leading": "https://example.com/images/bigdata.jpg",
-    "date": "2023-06-18",
-    "department": "hnde"
-  },
-  {
-    "title": "Digital Image Processing",
-    "subtitle": "Manipulate and enhance digital images",
-    "leading": "https://example.com/images/imageprocessing.jpg",
-    "date": "2023-06-19",
-    "department": "hnda"
-  },
-  {
-    "title": "Computer Architecture",
-    "subtitle": "Understand computer system organization",
-    "leading": "https://example.com/images/computerarchitecture.jpg",
-    "date": "2023-06-20",
-    "department": "hndit"
-  },
-  {
-    "title": "Software Design Patterns",
-    "subtitle": "Apply reusable software design patterns",
-    "leading": "https://example.com/images/designpatterns.jpg",
-    "date": "2023-06-21",
-    "department": "hndit"
-  },
-  {
-    "title": "Embedded Systems",
-    "subtitle": "Build systems with dedicated functions",
-    "leading": "https://example.com/images/embeddedsystems.jpg",
-    "date": "2023-06-22",
-    "department": "hnde"
-  },
-  {
-    "title": "Natural Language Processing",
-    "subtitle": "Process and understand human language",
-    "leading": "https://example.com/images/nlp.jpg",
-    "date": "2023-06-23",
-    "department": "hnde"
-  },
-  {
-    "title": "Mobile Game Development",
-    "subtitle": "Create interactive mobile games",
-    "leading": "https://example.com/images/mobilegamedev.jpg",
-    "date": "2023-06-24",
-    "department": "hnda"
-  },
-  {
-    "title": "Robotics",
-    "subtitle": "Build and program robots",
-    "leading": "https://example.com/images/robotics.jpg",
-    "date": "2023-06-25",
-    "department": "hnda"
-  },
-  {
-    "title": "Quantum Computing",
-    "subtitle": "Explore the future of computing",
-    "leading": "https://example.com/images/quantumcomputing.jpg",
-    "date": "2023-06-26",
-    "department": "hndit"
-  },
-  {
-    "title": "Virtual Reality",
-    "subtitle": "Create immersive virtual experiences",
-    "leading": "https://example.com/images/virtualreality.jpg",
-    "date": "2023-06-27",
-    "department": "hnda"
-  },
-  {
-    "title": "Computer Vision",
-    "subtitle": "Develop systems that can see and understand images",
-    "leading": "https://example.com/images/computervision.jpg",
-    "date": "2023-06-28",
-    "department": "hnde"
-  },
-  {
-    "title": "E-commerce Development",
-    "subtitle": "Build online shopping platforms",
-    "leading": "https://example.com/images/ecommerce.jpg",
-    "date": "2023-06-29",
-    "department": "hnde"
-  },
-  {
-    "title": "Data Mining",
-    "subtitle": "Extract knowledge from large datasets",
-    "leading": "https://example.com/images/datamining.jpg",
-    "date": "2023-06-30",
-    "department": "hndit"
-  }
-]
+{
+  "news": [
+    {
+      "title": "Introduction to Programming",
+      "subtitle": "Learn the basics of programming",
+      "leading": "https://example.com/images/programming.jpg",
+      "date": "2023-06-01",
+      "department": "hndit"
+    },
+    {
+      "title": "Data Structures and Algorithms",
+      "subtitle": "Explore advanced data structures and algorithms",
+      "leading": "https://example.com/images/dsa.jpg",
+      "date": "2023-06-02",
+      "department": "hndit"
+    },
+    {
+      "title": "Web Development Fundamentals",
+      "subtitle": "Build dynamic web applications",
+      "leading": "https://example.com/images/webdev.jpg",
+      "date": "2023-06-03",
+      "department": "hnde"
+    },
+    {
+      "title": "Mobile App Development",
+      "subtitle": "Create cross-platform mobile apps",
+      "leading": "https://example.com/images/mobiledev.jpg",
+      "date": "2023-06-04",
+      "department": "hnda"
+    },
+    {
+      "title": "Database Design and Management",
+      "subtitle": "Learn about relational database systems",
+      "leading": "https://example.com/images/dbdesign.jpg",
+      "date": "2023-06-05",
+      "department": "hndit"
+    },
+    {
+      "title": "Software Engineering Principles",
+      "subtitle": "Develop high-quality software systems",
+      "leading": "https://example.com/images/softwareeng.jpg",
+      "date": "2023-06-06",
+      "department": "hndit"
+    },
+    {
+      "title": "Artificial Intelligence",
+      "subtitle": "Explore the world of AI and machine learning",
+      "leading": "https://example.com/images/ai.jpg",
+      "date": "2023-06-07",
+      "department": "hnde"
+    },
+    {
+      "title": "Network Security",
+      "subtitle": "Learn about securing computer networks",
+      "leading": "https://example.com/images/networksec.jpg",
+      "date": "2023-06-08",
+      "department": "hnde"
+    },
+    {
+      "title": "Computer Graphics",
+      "subtitle": "Create stunning visual effects and animations",
+      "leading": "https://example.com/images/computergraphics.jpg",
+      "date": "2023-06-09",
+      "department": "hnda"
+    },
+    {
+      "title": "Operating Systems",
+      "subtitle": "Understand the principles of operating systems",
+      "leading": "https://example.com/images/operatingsystems.jpg",
+      "date": "2023-06-10",
+      "department": "hndit"
+    },
+    {
+      "title": "Software Testing and Quality Assurance",
+      "subtitle": "Ensure software reliability and quality",
+      "leading": "https://example.com/images/softwaretesting.jpg",
+      "date": "2023-06-11",
+      "department": "hndit"
+    },
+    {
+      "title": "Internet of Things (IoT)",
+      "subtitle": "Explore the world of interconnected devices",
+      "leading": "https://example.com/images/iot.jpg",
+      "date": "2023-06-12",
+      "department": "hnde"
+    },
+    {
+      "title": "Cloud Computing",
+      "subtitle": "Deploy applications on the cloud",
+      "leading": "https://example.com/images/cloudcomputing.jpg",
+      "date": "2023-06-13",
+      "department": "hnde"
+    },
+    {
+      "title": "Computer Networks",
+      "subtitle": "Learn about network architecture and protocols",
+      "leading": "https://example.com/images/computernetworks.jpg",
+      "date": "2023-06-14",
+      "department": "hnda"
+    },
+    {
+      "title": "Human-Computer Interaction",
+      "subtitle": "Design user-friendly interfaces",
+      "leading": "https://example.com/images/hci.jpg",
+      "date": "2023-06-15",
+      "department": "hndit"
+    },
+    {
+      "title": "Cybersecurity",
+      "subtitle": "Protect computer systems from cyber threats",
+      "leading": "https://example.com/images/cybersecurity.jpg",
+      "date": "2023-06-16",
+      "department": "hnde"
+    },
+    {
+      "title": "Software Project Management",
+      "subtitle": "Plan and manage software projects",
+      "leading": "https://example.com/images/projectmanagement.jpg",
+      "date": "2023-06-17",
+      "department": "hndit"
+    },
+    {
+      "title": "Big Data Analytics",
+      "subtitle": "Extract insights from large datasets",
+      "leading": "https://example.com/images/bigdata.jpg",
+      "date": "2023-06-18",
+      "department": "hnde"
+    },
+    {
+      "title": "Digital Image Processing",
+      "subtitle": "Manipulate and enhance digital images",
+      "leading": "https://example.com/images/imageprocessing.jpg",
+      "date": "2023-06-19",
+      "department": "hnda"
+    },
+    {
+      "title": "Computer Architecture",
+      "subtitle": "Understand computer system organization",
+      "leading": "https://example.com/images/computerarchitecture.jpg",
+      "date": "2023-06-20",
+      "department": "hndit"
+    },
+    {
+      "title": "Software Design Patterns",
+      "subtitle": "Apply reusable software design patterns",
+      "leading": "https://example.com/images/designpatterns.jpg",
+      "date": "2023-06-21",
+      "department": "hndit"
+    },
+    {
+      "title": "Embedded Systems",
+      "subtitle": "Build systems with dedicated functions",
+      "leading": "https://example.com/images/embeddedsystems.jpg",
+      "date": "2023-06-22",
+      "department": "hnde"
+    },
+    {
+      "title": "Natural Language Processing",
+      "subtitle": "Process and understand human language",
+      "leading": "https://example.com/images/nlp.jpg",
+      "date": "2023-06-23",
+      "department": "hnde"
+    },
+    {
+      "title": "Mobile Game Development",
+      "subtitle": "Create interactive mobile games",
+      "leading": "https://example.com/images/mobilegamedev.jpg",
+      "date": "2023-06-24",
+      "department": "hnda"
+    },
+    {
+      "title": "Robotics",
+      "subtitle": "Build and program robots",
+      "leading": "https://example.com/images/robotics.jpg",
+      "date": "2023-06-25",
+      "department": "hnda"
+    },
+    {
+      "title": "Quantum Computing",
+      "subtitle": "Explore the future of computing",
+      "leading": "https://example.com/images/quantumcomputing.jpg",
+      "date": "2023-06-26",
+      "department": "hndit"
+    },
+    {
+      "title": "Virtual Reality",
+      "subtitle": "Create immersive virtual experiences",
+      "leading": "https://example.com/images/virtualreality.jpg",
+      "date": "2023-06-27",
+      "department": "hnda"
+    },
+    {
+      "title": "Computer Vision",
+      "subtitle": "Develop systems that can see and understand images",
+      "leading": "https://example.com/images/computervision.jpg",
+      "date": "2023-06-28",
+      "department": "hnde"
+    },
+    {
+      "title": "E-commerce Development",
+      "subtitle": "Build online shopping platforms",
+      "leading": "https://example.com/images/ecommerce.jpg",
+      "date": "2023-06-29",
+      "department": "hnde"
+    },
+    {
+      "title": "Data Mining",
+      "subtitle": "Extract knowledge from large datasets",
+      "leading": "https://example.com/images/datamining.jpg",
+      "date": "2023-06-30",
+      "department": "hndit"
+    }
+  ]
+}

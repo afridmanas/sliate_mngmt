@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sliate/reuse.dart';
 
 // ignore: camel_case_types
 class news_veiw extends StatefulWidget {

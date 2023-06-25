@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sliate/reuse.dart';
-import 'package:sliate/screens/navigation_bar/Events/events_page.dart';
-import 'package:sliate/screens/navigation_bar/Home/home_page.dart';
-import 'package:sliate/screens/navigation_bar/NewsFeed/newsfeed.dart';
-import 'package:sliate/screens/navigation_bar/Settings/settings.dart';
+import 'package:sliate/screens/categories/navigation_bar/Events/events_page.dart';
+import 'package:sliate/screens/categories/navigation_bar/Home/home_page.dart';
+import 'package:sliate/screens/categories/navigation_bar/NewsFeed/newsfeed.dart';
+import 'package:sliate/screens/categories/navigation_bar/Settings/settings.dart';
 import 'package:sliate/screens/widgets/drawer.dart';
 
 class user_dashboard extends StatefulWidget {
@@ -84,12 +84,12 @@ class _user_dashboardState extends State<user_dashboard> {
                     )),
               ]),
           backgroundColor: Colors.white,
-          drawer: const drawer(),
+          drawer:  drawer(),
           body: IndexedStack(
             index: _selectedIndex,
             children: const [
               Home_page(),
-              newsfeed(),
+              // newsfeed(),
               Events_page(),
               SettingsPage()
             ],

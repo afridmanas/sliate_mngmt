@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sliate/color.dart';
-import 'package:sliate/screens/Notes/note_past.dart';
 
 class Notes_home extends StatefulWidget {
   const Notes_home({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _Notes_homeState extends State<Notes_home>
   @override
   void initState() {
     super.initState();
-    _tabcontroller = TabController(length: 3, vsync: this);
+    _tabcontroller = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -97,102 +96,6 @@ class _Notes_homeState extends State<Notes_home>
         iconTheme: const IconThemeData(
           color: Colors.black,
         ),
-        actions: [
-          PopupMenuButton(
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                value: 'add',
-                child: Text('Add Course Details'),
-              ),
-            ],
-            onSelected: (value) {
-              if (value == 'add') {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Add Subject Details',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextField(
-                              controller: _titleController,
-                              decoration: const InputDecoration(
-                                labelText: 'Title',
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextField(
-                              controller: _yearController,
-                              decoration: const InputDecoration(
-                                labelText: 'Year',
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextField(
-                              controller: _semesterController,
-                              decoration: const InputDecoration(
-                                labelText: 'Semester',
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            TextField(
-                              controller: _departmentController,
-                              decoration: const InputDecoration(
-                                labelText: 'Department',
-                              ),
-                            ),
-                            const SizedBox(height: 16.0),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () =>
-                                        _pickImage(ImageSource.camera),
-                                    child: const Text('Take a Photo'),
-                                  ),
-                                ),
-                                const SizedBox(width: 16.0),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () =>
-                                        _pickImage(ImageSource.gallery),
-                                    child: const Text('Choose from Gallery'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16.0),
-                            ElevatedButton(
-                              onPressed: _addCourseDetails,
-                              child: const Text('Add'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
-              }
-            },
-          ),
-
-          // IconButton(
-          //   icon: const Icon(Icons.more_horiz_outlined),
-          //   onPressed: () {
-          //     // Add your action code here
-          //   },
-          // ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -245,13 +148,16 @@ class _Notes_homeState extends State<Notes_home>
                       controller: _tabcontroller,
                       tabs: const [
                         Tab(
-                          text: 'HNDIT',
+                          text: 'Semester 1',
                         ),
                         Tab(
-                          text: 'HNDE',
+                          text: 'Semester 1',
                         ),
                         Tab(
-                          text: 'HNDA',
+                          text: 'Semester 1',
+                        ),
+                        Tab(
+                          text: 'Semester 4',
                         ),
                       ],
                     ),
@@ -280,14 +186,14 @@ class _Notes_homeState extends State<Notes_home>
                                 var course = snapshot.data!.docs[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => notes_patpaper(
-                                              title: course['title'],
-                                            )),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: ((context) => NotesPatPaper(
+                                    //           title: course['title'],
+                                    //         )),
+                                    //   ),
+                                    // );
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 15),
@@ -372,13 +278,13 @@ class _Notes_homeState extends State<Notes_home>
                                 var course = snapshot.data!.docs[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => notes_patpaper(
-                                            title: course['title'])),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: ((context) => NotesPatPaper(
+                                    //         title: course['title'])),
+                                    //   ),
+                                    // );
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 15),
@@ -463,13 +369,104 @@ class _Notes_homeState extends State<Notes_home>
                                 var course = snapshot.data!.docs[index];
                                 return GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: ((context) => notes_patpaper(
-                                            title: course['title'])),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: ((context) => NotesPatPaper(
+                                    //         title: course['title'])),
+                                    //   ),
+                                    // );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: 15),
+                                    margin: const EdgeInsets.only(bottom: 10),
+                                    height: 80,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: bg_clr,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              color: bg_clr,
+                                            ),
+                                            child: CircleAvatar(
+                                              backgroundImage: NetworkImage(
+                                                course['image'],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 5),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                course['title'],
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16.0,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                '${course['year']} Year '
+                                                '${course['semester']} Semester',
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios_sharp,
+                                          size: 18,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: snapshot.data!.docs.length,
+                            );
+                          },
+                        ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _db
+                              .collection(
+                                  '/lms/departments/hndit/semester3/sub_1')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            return ListView.builder(
+                              itemBuilder: (context, index) {
+                                var course = snapshot.data!.docs[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: ((context) => NotesPatPaper(
+                                    //         title: course['title'])),
+                                    //   ),
+                                    // );
                                   },
                                   child: Container(
                                     padding: EdgeInsets.only(right: 15),

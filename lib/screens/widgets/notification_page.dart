@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -20,52 +21,21 @@ class _NotificationPageState extends State<NotificationPage> {
           color: Colors.black,
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: 15.0, right: 15),
-            child: Text(
-              'Notifications',
-              style: GoogleFonts.mavenPro(
-                textStyle: const TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: .5),
-              ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+        ),
+        child: Container(
+          child: const Text(
+            'Notifications',
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 15,
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: ListView.builder(
-                itemCount: 50,
-                itemBuilder: (context, Index) {
-                  return const Column(
-                    children: [
-                      ListTile(
-                        title: Text('Manas Liked your Post'),
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/logo/manas.jpg'),
-                        ),
-                        // onTap: () {
-
-                        // },
-                      ),
-                      Divider(
-                        height: 15,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

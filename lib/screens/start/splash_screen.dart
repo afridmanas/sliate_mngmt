@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sliate/screens/log/login_page.dart';
-import 'package:sliate/screens/navigation_bar/Home/dashboard.dart';
+import 'package:sliate/screens/categories/log/login_page.dart';
+import 'package:sliate/screens/categories/navigation_bar/Home/dashboard.dart';
 
 class splash_screen extends StatefulWidget {
   const splash_screen({super.key});
@@ -23,7 +23,7 @@ class _splash_screenState extends State<splash_screen> {
       if (token != null) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => dashboard()),
+          MaterialPageRoute(builder: (context) => Dashboard()),
         );
       } else {
         Navigator.push(
@@ -47,6 +47,3 @@ class _splash_screenState extends State<splash_screen> {
     );
   }
 }
-
-
-

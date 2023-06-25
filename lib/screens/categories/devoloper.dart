@@ -1,177 +1,273 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:sliate/color.dart';
 
-class DeveloperInfoPage extends StatelessWidget {
-  final String name = 'John Doe';
-  final String image = 'https://via.placeholder.com/150';
-  final String about =
-      'I am a mobile app developer with 5 years of experience in Flutter. I specialize in building beautiful and functional apps for both Android and iOS platforms.';
-  final List<String> projects = [
-    'Project 1',
-    'Project 2',
-    'Project 3',
+class DeveloperInfoPage extends StatefulWidget {
+  @override
+  _DeveloperInfoPageState createState() => _DeveloperInfoPageState();
+}
+
+class _DeveloperInfoPageState extends State<DeveloperInfoPage> {
+  List project = [
+    'assets/images/logo/manas.jpg',
+    'assets/images/logo/manas.jpg',
+    'assets/images/logo/manas.jpg',
+    'assets/images/logo/manas.jpg',
+    'assets/images/logo/manas.jpg',
+    'assets/images/logo/manas.jpg',
   ];
-  final String githubLink = 'https://github.com/johndoe';
-  final String email = 'johndoe@example.com';
-  final String phone = '+1 123-456-7890';
-  final String linkedinLink = 'https://www.linkedin.com/in/johndoe';
-  final String twitterLink = 'https://twitter.com/johndoe';
+  bool isHovered = false;
 
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      'Could not launch $url';
-    }
+  void _onHover(bool hover) {
+    setState(() {
+      isHovered = hover;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(
-          color: Colors.black, // Change the color of the back arrow here
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
           children: [
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 50.0,
-                    backgroundImage: AssetImage(
-                      'assets/images/logo/manas.jpg',
+            Stack(
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      height: height,
+                      width: width,
                     ),
-                    // fit: BoxFit.fitWidth,
-                  ),
-                  const SizedBox(width: 16.0),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Stack(
                       children: [
-                        Text(
-                          name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                          ),
+                        Image.asset(
+                          'assets/images/logo/manas.jpg',
+                          fit: BoxFit.cover,
+                          height: height / 3 * 1.8,
+                          width: double.infinity,
                         ),
-                        const SizedBox(height: 8.0),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.email),
-                              onPressed: () => _launchURL('mailto:$email'),
+                        Positioned(
+                          top: 10,
+                          left: 10,
+                          child: IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              size: 22,
+                              color: bg_clr,
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.phone),
-                              onPressed: () => _launchURL('tel:$phone'),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.link),
-                              onPressed: () => _launchURL(githubLink),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                      height: 330,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 35,
+                          left: 30,
+                          right: 30,
+                        ),
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Manas Afrid',
+                                        style: GoogleFonts.mavenPro(
+                                          textStyle: TextStyle(
+                                              fontSize: 15,
+                                              color: text_clr,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: .5),
+                                        ),
+                                      ),
+                                      Text(
+                                        'SAM/IT/2020/F/0024',
+                                        style: GoogleFonts.mavenPro(
+                                          textStyle: const TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: .5),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: Container(
+                                      padding: const EdgeInsets.only(
+                                        left: 25,
+                                        right: 25,
+                                        top: 8,
+                                        bottom: 8,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          border: Border.all(
+                                            width: 2,
+                                          )),
+                                      child: Text(
+                                        'Follow',
+                                        style: GoogleFonts.mavenPro(
+                                          textStyle: TextStyle(
+                                              fontSize: 13,
+                                              color: text_clr,
+                                              fontWeight: FontWeight.bold,
+                                              letterSpacing: .5),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'My Projects',
+                                style: GoogleFonts.mavenPro(
+                                  textStyle: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: .5),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 75,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: project.length,
+                                  itemBuilder: (context, index) {
+                                    return Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 75,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.asset(
+                                              project[index],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'About',
+                                style: GoogleFonts.mavenPro(
+                                  textStyle: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: .5),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Hi, My Name is Manas Afrid and I live',
+                                style: GoogleFonts.mavenPro(
+                                  textStyle: const TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: .5),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+              ],
             ),
-            const SizedBox(height: 16.0),
             Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'About Me',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    about,
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                ],
+              margin: EdgeInsets.only(
+                top: height / 2 - 15,
               ),
-            ),
-            const SizedBox(height: 16.0),
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Projects',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: projects.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(projects[index]),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.link),
-                    onPressed: () => _launchURL(githubLink),
+                  Text(
+                    'HNDIT',
+                    style: GoogleFonts.mavenPro(
+                      textStyle: TextStyle(
+                          fontSize: 15,
+                          color: bg_clr,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: .5),
+                    ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.email),
-                    onPressed: () => _launchURL('mailto:$email'),
+                  Text(
+                    '2020 Batch',
+                    style: GoogleFonts.mavenPro(
+                      textStyle: TextStyle(
+                          fontSize: 15,
+                          color: bg_clr,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: .5),
+                    ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.phone),
-                    onPressed: () => _launchURL('tel:$phone'),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.email),
-                    onPressed: () => _launchURL(linkedinLink),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.email),
-                    onPressed: () => _launchURL(twitterLink),
+                  Text(
+                    '10K',
+                    style: GoogleFonts.mavenPro(
+                      textStyle: TextStyle(
+                          fontSize: 15,
+                          color: bg_clr,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: .5),
+                    ),
                   ),
                 ],
               ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 }
+

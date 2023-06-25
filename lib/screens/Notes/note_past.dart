@@ -1,118 +1,152 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
+import 'package:sliate/screens/Notes/downloaded_files.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:sliate/color.dart';
 
-class notes_patpaper extends StatefulWidget {
+class NotesPatPaper extends StatefulWidget {
   final String title;
+  final String notes_path;
+  final String past_path;
 
-  notes_patpaper({super.key, required this.title});
+  const NotesPatPaper(
+      {Key? key,
+      required this.title,
+      required this.notes_path,
+      required this.past_path})
+      : super(key: key);
 
   @override
-  _notes_patpaperState createState() => _notes_patpaperState();
+  _NotesPatPaperState createState() => _NotesPatPaperState();
 }
 
-class _notes_patpaperState extends State<notes_patpaper> {
-  List<Notes_List> lms_notes_list = [];
-  List<Notes_List> past_paper_list = [];
-
-  Future<void> Notes() async {
-    final storage = FirebaseStorage.instance;
-    final ListResult result = await storage.ref().child('books').listAll();
-    final List<Notes_List> Notes = [];
-
-    for (final ref in result.items) {
-      final url = await ref.getDownloadURL();
-      final metadata = await ref.getMetadata();
-      final book = Notes_List(
-        title: metadata.name ?? '',
-        year: metadata.customMetadata?['year'] ?? '',
-        imageUrl: url,
-      );
-      Notes.add(book);
-    }
-
-    setState(() {
-      lms_notes_list = Notes;
-    });
-  }
-
-  List<String> notesList = [
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-    'Note 1',
-    'Note 2',
-    'Note 3',
-  ];
-
-  List<String> pastPapersList = [
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-    'Past Paper 1',
-    'Past Paper 2',
-    'Past Paper 3',
-  ];
-
+class _NotesPatPaperState extends State<NotesPatPaper> {
   List<String> filteredList = [];
+  final firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+  List<String> Notes_list = [];
+  List<String> pastpaper_list = [];
+  Map<String, double> downloadProgress = {};
+  Map<String, bool> isDownloaded = {};
 
   @override
   void initState() {
     super.initState();
-    filteredList = notesList; // Initially display notes
+    fetchPDFFiles();
+    initializeDownloadedStatus();
   }
 
-  void filterFiles(String searchText) {
-    setState(() {
-      if (searchText.isEmpty) {
-        // If search text is empty, display all files
-        filteredList = notesList;
-        return;
-      }
+  void initializeDownloadedStatus() {
+    for (final pdfUrl in Notes_list + pastpaper_list) {
+      isDownloaded[pdfUrl] = false;
+    }
+  }
 
-      // Filter files based on search text
-      filteredList = notesList
-          .where(
-              (note) => note.toLowerCase().contains(searchText.toLowerCase()))
-          .toList();
+  Future<void> fetchPDFFiles() async {
+    final firebase_storage.ListResult notes_results =
+        await storage.ref(widget.notes_path).listAll();
+    final firebase_storage.ListResult past_results =
+        await storage.ref(widget.past_path).listAll();
+    setState(() {
+      Notes_list = notes_results.items.map((firebase_storage.Reference ref) {
+        return ref.fullPath;
+      }).toList();
+      pastpaper_list = past_results.items.map((firebase_storage.Reference ref) {
+        return ref.fullPath;
+      }).toList();
     });
   }
 
-  void navigateToSearchPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SearchPage(filteredList),
+  Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<String?> _downloadPDF(String url, String fileName) async {
+    final path = await _localPath;
+    final file = File('$path/$fileName');
+
+    try {
+      final firebase_storage.Reference ref =
+          firebase_storage.FirebaseStorage.instance.ref(url);
+      final firebase_storage.DownloadTask downloadTask = ref.writeToFile(file);
+
+      downloadTask.snapshotEvents.listen(
+        (firebase_storage.TaskSnapshot snapshot) {
+          final progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setState(() {
+            downloadProgress[url] = progress;
+          });
+        },
+        onError: (error) {
+          print('Download error: $error');
+        },
+        onDone: () {
+          setState(() {
+            downloadProgress.remove(url);
+          });
+          print('Download complete');
+        },
+      );
+
+      await downloadTask;
+    } catch (e) {
+      print('Error downloading file: $e');
+      return null;
+    }
+
+    return file.path;
+  }
+
+  void _startDownload(String pdfUrl) async {
+    final fileName = pdfUrl.split('/').last;
+    final filePath = await _downloadPDF(pdfUrl, fileName);
+
+    if (filePath != null) {
+      print('PDF downloaded to: $filePath');
+      setState(() {
+        isDownloaded[pdfUrl] = true;
+      });
+
+      _showSnackBar(filePath);
+    } else {
+      print('Download failed');
+    }
+  }
+
+  void _showSnackBar(String filePath) {
+    final snackBar = SnackBar(
+      content: const Text('PDF downloaded'),
+      action: SnackBarAction(
+        label: 'Open',
+        onPressed: () {
+          _launchURL(filePath);
+        },
       ),
     );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _launchURL(String filePath) async {
+    final file = File(filePath);
+    if (await file.exists()) {
+      final directory = await getExternalStorageDirectory();
+      final fileName = filePath.split('/').last;
+      final newPath = '${directory!.path}/$fileName';
+      await file.copy(newPath);
+      await OpenFile.open(newPath);
+    } else {
+      print('File does not exist: $filePath');
+    }
   }
 
   @override
@@ -127,9 +161,14 @@ class _notes_patpaperState extends State<notes_patpaper> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.folder),
             onPressed: () {
-              // Add your action code here
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: ((context) => DownloadedFilesList()),
+                ),
+              );
             },
           ),
         ],
@@ -167,7 +206,7 @@ class _notes_patpaperState extends State<notes_patpaper> {
                       onPressed: () {
                         setState(
                           () {
-                            filteredList = notesList;
+                            filteredList = Notes_list;
                           },
                         );
                       },
@@ -228,7 +267,7 @@ class _notes_patpaperState extends State<notes_patpaper> {
                       onPressed: () {
                         setState(
                           () {
-                            filteredList = pastPapersList;
+                            filteredList = pastpaper_list;
                           },
                         );
                       },
@@ -309,64 +348,99 @@ class _notes_patpaperState extends State<notes_patpaper> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0, right: 8),
-                child: ListView.builder(
-                  itemCount: filteredList.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.only(
-                        bottom: 10,
-                      ),
-                      height: 80,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: bg_clr,
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 10, right: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 10, left: 5),
-                              height: 50,
-                              width: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: bg_clr,
-                                image: const DecorationImage(
-                                  image: AssetImage(
-                                    'assets/images/logo/manas.jpg',
-                                  ),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Expanded(
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(filteredList[index]),
-                                    const Text(
-                                      '1st Year 1st Semester',
-                                      style: TextStyle(color: Colors.grey),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(Icons.download),
-                            )
-                          ],
+                child: filteredList.isEmpty
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.blue),
                         ),
+                      )
+                    : ListView.builder(
+                        itemCount: filteredList.length,
+                        itemBuilder: (context, index) {
+                          final pdfUrl = filteredList[index];
+                          final fileName = pdfUrl.split('/').last;
+                          final progress = downloadProgress[pdfUrl] ?? 0;
+                          return Container(
+                            margin: const EdgeInsets.only(
+                              bottom: 10,
+                            ),
+                            height: 80,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: bg_clr,
+                            ),
+                            child: Container(
+                              margin:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        right: 10, left: 5),
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: bg_clr,
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                          'assets/images/logo/manas.jpg',
+                                        ),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Expanded(
+                                    child: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            fileName,
+                                            style: TextStyle(
+                                              color: text_clr,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const Text(
+                                            '1st Year 1st Semester',
+                                            style:
+                                                TextStyle(color: Colors.grey),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      if ((isDownloaded[pdfUrl] ?? false) ==
+                                              false &&
+                                          progress <= 0.0) {
+                                        _startDownload(pdfUrl);
+                                      }
+                                    },
+                                    icon: (isDownloaded[pdfUrl] ?? false)
+                                        ? Icon(Icons.done)
+                                        : progress > 0.0
+                                            ? SpinKitCircle(
+                                                color: Colors.blue,
+                                                size: 20.0,
+                                              )
+                                            : Icon(Icons.download),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ),
           ],
@@ -374,18 +448,6 @@ class _notes_patpaperState extends State<notes_patpaper> {
       ),
     );
   }
-}
-
-class Notes_List {
-  final String title;
-  final String year;
-  final String imageUrl;
-
-  Notes_List({
-    required this.title,
-    required this.year,
-    required this.imageUrl,
-  });
 }
 
 class SearchPage extends StatefulWidget {
@@ -415,7 +477,7 @@ class _SearchPageState extends State<SearchPage> {
 
       filteredList = widget.searchList
           .where(
-              (item) => item.toLowerCase().contains(searchText.toLowerCase()))
+              (note) => note.toLowerCase().contains(searchText.toLowerCase()))
           .toList();
     });
   }
@@ -424,20 +486,31 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: TextField(
-          onChanged: filterSearchList,
-          decoration: const InputDecoration(
-            hintText: 'Search',
-          ),
-        ),
+        title: const Text('Search'),
       ),
-      body: ListView.builder(
-        itemCount: filteredList.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(filteredList[index]),
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: filterSearchList,
+              decoration: const InputDecoration(
+                labelText: 'Search',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredList.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(filteredList[index]),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
